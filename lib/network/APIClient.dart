@@ -5,14 +5,14 @@ import 'package:http/http.dart' as http;
 import 'APIError.dart';
 
 class APIClient {
-  String _baseURL = "https://api.themoviedb.org/3/";
+  String _baseURL = "api.themoviedb.org";
   String _apiKey = "18c1afb840d17621435b98dd49866826";
   http.Client _client = http.Client();
 
   Future<dynamic> get(String path) async {
     var responseJSON;
     final _parameters = {"api_key": _apiKey};
-    Uri _url = Uri.http(_baseURL, path, _parameters);
+    Uri _url = Uri.https(_baseURL, "/3/" + path, _parameters);
 
     try {
       final response = await _client.get(_url);
