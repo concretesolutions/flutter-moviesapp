@@ -15,7 +15,6 @@ class MyApp extends StatelessWidget {
           primaryColor: CupertinoColors.black,
         ),
         home: TabBar(),
-        title: "IOS",
       );
 
   }

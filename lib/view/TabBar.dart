@@ -20,7 +20,6 @@ class _TabBarState extends State<TabBar> {
 
   @override
   Widget build(BuildContext context) {
-    // if (isIos) {
       return CupertinoTabScaffold(
         tabBar: CupertinoTabBar(
           items: [
