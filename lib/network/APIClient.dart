@@ -2,13 +2,14 @@ import 'dart:io';
 import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
+import 'package:moviesapp/config/Config.dart';
 import 'package:moviesapp/network/APIRequest.dart';
 import 'package:moviesapp/network/APIRequestMethod.dart';
 import 'APIError.dart';
 
 class APIClient {
   String _baseURL = "api.themoviedb.org";
-  String _apiKey = "18c1afb840d17621435b98dd49866826";
+  String _apiKey = Config.apiKey;
   http.Client _client = http.Client();
 
   Future<dynamic> request(APIRequest request) async {
