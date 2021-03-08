@@ -1,4 +1,5 @@
 import 'package:moviesapp/moviesList/model/Movie.dart';
+import 'package:moviesapp/moviesList/service/MoviesListRequest.dart';
 import 'package:moviesapp/network/APIClient.dart';
 
 class MoviesListService {
@@ -9,9 +10,9 @@ class MoviesListService {
   }
 
   Future<Movies> fetchMovies() async {
-    final response = await _client.get("movie/popular");
+    final request = MoviesListRequest();
+    final response = await _client.request(request);
     final movies = Movies.fromJSON(response);
-    print(movies.list.first.title);
     return movies;
   }
 }

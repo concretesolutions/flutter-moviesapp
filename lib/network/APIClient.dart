@@ -2,6 +2,8 @@ import 'dart:io';
 import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
+import 'package:moviesapp/network/APIRequest.dart';
+import 'package:moviesapp/network/APIRequestMethod.dart';
 import 'APIError.dart';
 
 class APIClient {
@@ -9,22 +11,31 @@ class APIClient {
   String _apiKey = "18c1afb840d17621435b98dd49866826";
   http.Client _client = http.Client();
 
-  Future<dynamic> get(String path) async {
-    var responseJSON;
-    final _parameters = {"api_key": _apiKey};
-    Uri _url = Uri.https(_baseURL, "/3/" + path, _parameters);
+  Future<dynamic> request(APIRequest request) async {
+    var _parameters = request.parameters;
+    _parameters["api_key"] = _apiKey;
+    Uri _url = Uri.https(_baseURL, "/3/" + request.path, _parameters);
 
     try {
-      final response = await _client.get(_url);
-      responseJSON = _responseToJSON(response);
+      return _request(_url, request.method);
     } on SocketException {
+      // TODO: Handle request failure
       throw FetchDataException('No Internet connection');
     }
-
-    return responseJSON;
   }
 
-  dynamic _responseToJSON(http.Response response) {
+  Future<dynamic> _request(Uri _url, APIRequestMethod method) async {
+    switch (method) {
+      case APIRequestMethod.get:
+        return _handleResponse(await _client.get(_url));
+      case APIRequestMethod.post:
+        return _handleResponse(await _client.post(_url));
+      case APIRequestMethod.delete:
+        return _handleResponse(await _client.delete(_url));
+    }
+  }
+
+  dynamic _handleResponse(http.Response response) {
     switch (response.statusCode) {
       case 200:
         return json.decode(response.body.toString());
