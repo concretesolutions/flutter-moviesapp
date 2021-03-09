@@ -1,36 +1,25 @@
 class APIError implements Exception {
-  final _message;
-  final _prefix;
+  final String _message;
+  final int _statusCode;
 
-  APIError([this._message, this._prefix]);
+  APIError([this._message, this._statusCode]);
 
   String toString() {
-    return "$_prefix$_message";
+    return "$_statusCode: $_message";
   }
 }
 
-class FetchDataException extends APIError {
-  FetchDataException([String message])
-      : super(message, "Error During Sommunication: ");
-}
-
-class BadRequestException extends APIError {
-  BadRequestException([message]) : super(message, "Invalid Request: ");
-}
-
-class UnauthorisedException extends APIError {
-  UnauthorisedException([message]) : super(message, "Unauthorised: ");
-}
-
-class AuthenticationRequiredException extends APIError {
-  AuthenticationRequiredException([message])
-      : super(message, "Authentication Required: ");
-}
-
-class InvalidInputException extends APIError {
-  InvalidInputException([String message]) : super(message, "Invalid Input: ");
+class ClientErrorException extends APIError {
+  ClientErrorException([String message, int statusCode])
+      : super(message, statusCode);
 }
 
 class ServerErrorException extends APIError {
-  ServerErrorException([String message]) : super(message, "Server Error: ");
+  ServerErrorException([String message, int statusCode])
+      : super(message, statusCode);
+}
+
+class UndefinedErrorException extends APIError {
+  UndefinedErrorException([String message, int statusCode])
+      : super(message, statusCode);
 }

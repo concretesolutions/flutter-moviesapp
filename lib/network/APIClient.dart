@@ -1,9 +1,9 @@
-import 'dart:io';
-import 'dart:convert';
 import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'package:moviesapp/network/APIRequest.dart';
 import 'package:moviesapp/network/APIRequestMethod.dart';
+import 'package:moviesapp/network/Decodable.dart';
+import 'package:moviesapp/network/Result.dart';
 import 'APIError.dart';
 
 class APIClient {
@@ -11,16 +11,30 @@ class APIClient {
   String _apiKey = "18c1afb840d17621435b98dd49866826";
   http.Client _client = http.Client();
 
-  Future<dynamic> request(APIRequest request) async {
+  Future<Result> request(APIRequest request) async {
+    var _parameters = request.parameters;
+    _parameters["api_key"] = _apiKey;
+    Uri _url = Uri.https(_baseURL, "/3/" + request.path, _parameters);
+    try {
+      final data = await _request(_url, request.method);
+      return Result.success(data);
+    } on APIError catch (error) {
+      throw Result.error(error);
+    }
+  }
+
+  Future<Result<Decodable>> requestDecodable(
+      APIRequest request, Decodable type) async {
     var _parameters = request.parameters;
     _parameters["api_key"] = _apiKey;
     Uri _url = Uri.https(_baseURL, "/3/" + request.path, _parameters);
 
     try {
-      return _request(_url, request.method);
-    } on SocketException {
-      // TODO: Handle request failure
-      throw FetchDataException('No Internet connection');
+      final data = await _request(_url, request.method);
+      final decodable = Decodable(type, data);
+      return Result.success(decodable);
+    } on APIError catch (error) {
+      return Result.error(error);
     }
   }
 
@@ -36,19 +50,16 @@ class APIClient {
   }
 
   dynamic _handleResponse(http.Response response) {
-    switch (response.statusCode) {
-      case 200:
-        return json.decode(response.body.toString());
-      case 400:
-        throw BadRequestException(response.body.toString());
-      case 401:
-        throw AuthenticationRequiredException(response.body.toString);
-      case 403:
-        throw UnauthorisedException(response.body.toString());
-      case 500:
-        throw ServerErrorException(response.body.toString());
-      default:
-        throw FetchDataException('No Internet connection');
+    int statusCode = response.statusCode;
+
+    if (statusCode >= 200 && statusCode < 300) {
+      return response.body.toString();
+    } else if (statusCode >= 400 && statusCode < 500) {
+      throw ClientErrorException(response.body.toString(), response.statusCode);
+    } else if (statusCode >= 500 && statusCode < 600) {
+      throw ServerErrorException(response.body.toString(), response.statusCode);
+    } else {
+      throw UndefinedErrorException("Undefined error", response.statusCode);
     }
   }
 }
