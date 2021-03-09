@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 
-class Favorites extends StatelessWidget {
+class FavoritesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        backgroundColor: CupertinoColors.systemYellow,
+        middle: const Text("Favorites")
+      ),
       child: Center(
         child: Text("Favorites"),
       ),
