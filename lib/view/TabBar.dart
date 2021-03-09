@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'MoviesPage.dart';
-import 'FavoritesPage.dart';
+import '../moviesList/view/MoviesPage.dart';
+import '../favoritesList/view/FavoritesPage.dart';
 
 class TabBar extends StatefulWidget {
   TabBar({Key key, this.title}) : super(key: key);
