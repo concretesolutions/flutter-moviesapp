@@ -9,7 +9,7 @@ class FavoritesPage extends StatelessWidget {
         middle: const Text("Favorites")
       ),
       child: Center(
-        child: Text("Favorites"),
+        child: Text("FavoritesPage"),
       ),
     );
   }

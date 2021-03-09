@@ -29,14 +29,7 @@ class _TabBarState extends State<TabBar> {
         ],
       ),
       tabBuilder: (context, i) {
-        switch (i) {
-          case 0:
-            return tabs[i];
-          case 1:
-            return tabs[i];
-          default:
-            return tabs[i];
-        }
+        return tabs[i];
       },
     );
   }
