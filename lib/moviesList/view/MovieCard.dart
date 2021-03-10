@@ -13,7 +13,7 @@ class MovieCard extends StatefulWidget {
 class _MovieCardState extends State<MovieCard> {
   @override
   Widget build(BuildContext context) {
-    return Card(color: Colors.deepPurple, child: movieContent());
+    return Card(color: Colors.deepPurple, child: (movieContent()));
   }
 
   Widget movieContent() {
@@ -26,18 +26,18 @@ class _MovieCardState extends State<MovieCard> {
   }
 
   Widget imageLoader() {
-    return LayoutBuilder(builder: (_, constraints) {
-      return IntrinsicHeight(
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Image.network(
-                widget._movie,
-                height: 326,
-              ),
-            ]),
-      );
-    });
+    MediaQueryData queryData;
+    queryData = MediaQuery.of(context);
+    return Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Image.network(
+            widget._movie,
+            width: queryData.size.width,
+            fit: BoxFit.fill,
+          ),
+        ]);
   }
 
   Widget movieTitle() {
