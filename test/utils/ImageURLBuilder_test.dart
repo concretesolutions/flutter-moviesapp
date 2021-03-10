@@ -6,7 +6,7 @@ void main() {
     test("Build", () {
       final String finalURL = ImageURLBuilder.build("/mypath");
       expect(
-          finalURL.contains("https://image.tmdb.org/t/p/w154/mypath?apikey="),
+          finalURL.contains("https://image.tmdb.org/t/p/w154/mypath?api_key="),
           true);
     });
   });
