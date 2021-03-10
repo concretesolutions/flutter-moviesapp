@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:moviesapp/moviesList/model/Movie.dart';
+import 'package:moviesapp/utils/ImageURLBuilder.dart';
 
 class MovieCard extends StatefulWidget {
-  final String _movie;
+  final Movie _movie;
 
   MovieCard(this._movie);
 
@@ -28,12 +30,13 @@ class _MovieCardState extends State<MovieCard> {
   Widget imageLoader() {
     MediaQueryData queryData;
     queryData = MediaQuery.of(context);
+    final posterURL = ImageURLBuilder.build(widget._movie.poster);
     return Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Image.network(
-            widget._movie,
+            posterURL,
             width: queryData.size.width,
             fit: BoxFit.fill,
           ),
@@ -45,7 +48,7 @@ class _MovieCardState extends State<MovieCard> {
       child: Container(
         child: Center(
             child: Text(
-          "Thor",
+          widget._movie.title,
           maxLines: 2,
           style: TextStyle(color: CupertinoColors.systemYellow),
           textAlign: TextAlign.center,
