@@ -8,9 +8,15 @@ import 'package:moviesapp/network/Result.dart';
 import 'APIError.dart';
 
 class APIClient {
-  String _baseURL = "api.themoviedb.org";
-  String _apiKey = Config.apiKey;
-  http.Client _client = http.Client();
+  String _baseURL;
+  String _apiKey;
+  http.Client _client;
+
+  APIClient([this._baseURL, this._client, this._apiKey]) {
+    _baseURL = _baseURL ?? "api.themoviedb.org";
+    _client = _client ?? http.Client();
+    _apiKey = _apiKey ?? Config.apiKey;
+  }
 
   Future<Result> request(APIRequest request) async {
     var _parameters = request.parameters;
@@ -20,7 +26,7 @@ class APIClient {
       final data = await _request(_url, request.method);
       return Result.success(data);
     } on APIError catch (error) {
-      throw Result.error(error);
+      return Result.error(error);
     }
   }
 
