@@ -1,11 +1,11 @@
 class APIError implements Exception {
-  final String _message;
-  final int _statusCode;
+  final String message;
+  final int statusCode;
 
-  APIError([this._message, this._statusCode]);
+  APIError([this.message, this.statusCode]);
 
   String toString() {
-    return "$_statusCode: $_message";
+    return "$statusCode: $message";
   }
 }
 
