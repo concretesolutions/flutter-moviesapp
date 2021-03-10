@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MovieCard extends StatefulWidget {
-
   final String _movie;
 
   MovieCard(this._movie);
@@ -12,41 +11,45 @@ class MovieCard extends StatefulWidget {
 }
 
 class _MovieCardState extends State<MovieCard> {
-
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.deepPurple, 
-      child: movieContent(),
-    );
+    return Card(color: Colors.deepPurple, child: movieContent());
   }
 
   Widget movieContent() {
     return Column(
       children: [
-        imageLoader(), 
+        imageLoader(),
         movieTitle(),
-        ],
+      ],
     );
   }
 
   Widget imageLoader() {
-    return Image.network(widget._movie);
+    return LayoutBuilder(builder: (_, constraints) {
+      return IntrinsicHeight(
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Image.network(
+                widget._movie,
+                height: 326,
+              ),
+            ]),
+      );
+    });
   }
 
   Widget movieTitle() {
     return Expanded(
-      flex: 1,
       child: Container(
         child: Center(
-          child: Text(
-            "TYhor",
-            maxLines: 2, 
-            style: TextStyle(
-              color: CupertinoColors.systemYellow), 
-            textAlign: TextAlign.center,
-          )
-        ),
+            child: Text(
+          "Thor",
+          maxLines: 2,
+          style: TextStyle(color: CupertinoColors.systemYellow),
+          textAlign: TextAlign.center,
+        )),
       ),
     );
   }
