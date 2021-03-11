@@ -12,15 +12,53 @@ class MovieCard extends StatefulWidget {
   _MovieCardState createState() => _MovieCardState();
 }
 
-class _MovieCardState extends State<MovieCard> {
-  bool _contentVisible = false;
+class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
+  AnimationController animationController;
+  Animation<double> animation;
+
+  @override
+  void initState() {
+    super.initState();
+    animationController = AnimationController(
+        duration: const Duration(milliseconds: 500), vsync: this);
+    animation =
+        CurvedAnimation(parent: animationController, curve: Curves.easeIn);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Card(color: Colors.deepPurple, child: (movieContent()));
+    return Card(color: Colors.deepPurple, child: (_cardContentLoading()));
   }
 
-  Widget movieTitle() {
+  Widget _cardContentLoading() {
+    return Stack(
+      children: [
+        Center(child: CircularProgressIndicator()),
+        Center(child: _cardContent()),
+      ],
+    );
+  }
+
+  Widget _cardContent() {
+    return FadeTransition(
+      opacity: animation,
+      child: Column(
+        children: [
+          _cardImageContainer(),
+          _cardMovieTitle(),
+        ],
+      ),
+    );
+  }
+
+  Widget _cardImageContainer() {
+    return Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [_cardImage()]);
+  }
+
+  Widget _cardMovieTitle() {
     return Expanded(
         child: Container(
       child: Center(
@@ -31,42 +69,22 @@ class _MovieCardState extends State<MovieCard> {
     ));
   }
 
-  Widget content() {
-    return AnimatedOpacity(
-      opacity: _contentVisible ? 1.0 : 0.0,
-      duration: Duration(milliseconds: 500),
-      child: Column(
-        children: [
-          imageLoader(),
-          movieTitle(),
-        ],
-      ),
-    );
-  }
-
-  Widget movieContent() {
-    this._contentVisible = true;
-    return Stack(
-      children: [
-        Center(child: CircularProgressIndicator()),
-        Center(child: content()),
-      ],
-    );
-  }
-
-  Widget imageLoader() {
+  Widget _cardImage() {
     MediaQueryData queryData;
     queryData = MediaQuery.of(context);
+
     final posterURL = ImageURLBuilder.build(widget._movie.poster);
-    return Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Image.network(
-            posterURL,
-            width: queryData.size.width,
-            fit: BoxFit.fill,
-          ),
-        ]);
+    final _image = Image.network(
+      posterURL,
+      width: queryData.size.width,
+      fit: BoxFit.fill,
+    );
+
+    _image.image
+        .resolve(new ImageConfiguration())
+        .addListener(ImageStreamListener((info, call) {
+      animationController.forward();
+    }));
+    return _image;
   }
 }
