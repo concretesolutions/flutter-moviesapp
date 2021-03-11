@@ -21,8 +21,15 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  http: ^0.13.0
   flutter:
     sdk: flutter
+  intl: ^0.17.0
+
+  flutter_localizations:
+    sdk: flutter
+
+  flutter_cupertino_localizations: 1.0.1
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -33,6 +40,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  mockito: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
