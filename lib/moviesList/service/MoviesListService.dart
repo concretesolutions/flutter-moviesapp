@@ -11,8 +11,8 @@ class MoviesListService {
     _client = _client ?? APIClient();
   }
 
-  Future<Result<Decodable>> fetchMovies() async {
-    final request = MoviesListRequest();
+  Future<Result<Decodable>> fetchMovies(int page) async {
+    final request = MoviesListRequest(page);
     return await _client.requestDecodable(request, Movies());
   }
 }

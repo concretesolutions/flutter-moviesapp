@@ -8,7 +8,8 @@ import 'package:moviesapp/network/Result.dart';
 class MoviesListViewModel extends ChangeNotifier {
   Response responseController;
   MoviesListService _service;
-  List<Movie> movies = [];
+  List<Movie> _movies = [];
+  int _page = 4;
 
   MoviesListViewModel([this._service]) {
     _service = _service ?? MoviesListService();
@@ -22,12 +23,12 @@ class MoviesListViewModel extends ChangeNotifier {
 
   void fetchMovies() async {
     setResponse(Response.loading("Loading"));
-    final response = await _service.fetchMovies();
+    final response = await _service.fetchMovies(_page);
     switch (response.result) {
       case ResultType.success:
         if (response.value is Movies) {
           Movies movies = response.value;
-          this.movies = movies.list;
+          this._movies = movies.list;
           setResponse(Response.completed("Success"));
         } else {
           setResponse(Response.error("Unable to decode movies model"));
@@ -40,10 +41,10 @@ class MoviesListViewModel extends ChangeNotifier {
   }
 
   int moviesCount() {
-    return movies.length;
+    return _movies.length;
   }
 
   Movie movieForIndex(int index) {
-    return movies[index];
+    return _movies[index];
   }
 }

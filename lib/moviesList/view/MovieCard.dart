@@ -13,16 +13,43 @@ class MovieCard extends StatefulWidget {
 }
 
 class _MovieCardState extends State<MovieCard> {
+  bool _contentVisible = false;
+
   @override
   Widget build(BuildContext context) {
     return Card(color: Colors.deepPurple, child: (movieContent()));
   }
 
+  Widget movieTitle() {
+    return Expanded(
+        child: Container(
+      child: Center(
+          child: Text(widget._movie.title,
+              maxLines: 2,
+              style: TextStyle(color: CupertinoColors.systemYellow),
+              textAlign: TextAlign.center)),
+    ));
+  }
+
+  Widget content() {
+    return AnimatedOpacity(
+      opacity: _contentVisible ? 1.0 : 0.0,
+      duration: Duration(milliseconds: 500),
+      child: Column(
+        children: [
+          imageLoader(),
+          movieTitle(),
+        ],
+      ),
+    );
+  }
+
   Widget movieContent() {
-    return Column(
+    this._contentVisible = true;
+    return Stack(
       children: [
-        imageLoader(),
-        movieTitle(),
+        Center(child: CircularProgressIndicator()),
+        Center(child: content()),
       ],
     );
   }
@@ -41,19 +68,5 @@ class _MovieCardState extends State<MovieCard> {
             fit: BoxFit.fill,
           ),
         ]);
-  }
-
-  Widget movieTitle() {
-    return Expanded(
-      child: Container(
-        child: Center(
-            child: Text(
-          widget._movie.title,
-          maxLines: 2,
-          style: TextStyle(color: CupertinoColors.systemYellow),
-          textAlign: TextAlign.center,
-        )),
-      ),
-    );
   }
 }

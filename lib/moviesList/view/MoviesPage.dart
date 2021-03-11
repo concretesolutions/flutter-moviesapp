@@ -11,6 +11,8 @@ class MoviesPage extends StatefulWidget {
   _MoviesPageState createState() => _MoviesPageState();
 }
 
+ScrollController _scrollController = new ScrollController();
+
 class _MoviesPageState extends State<MoviesPage> {
   MoviesListViewModel _viewModel;
 
@@ -54,16 +56,27 @@ class _MoviesPageState extends State<MoviesPage> {
 
   GridView _movieGrid() {
     return GridView.builder(
+      controller: _scrollController,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         childAspectRatio: 200 / 360,
         mainAxisSpacing: 8,
         crossAxisSpacing: 8,
       ),
-      itemCount: _viewModel.moviesCount(),
+      itemCount: _viewModel.moviesCount() + 2,
       itemBuilder: (BuildContext context, int index) {
-        return MovieCard(_viewModel.movieForIndex(index));
+        return _itemForIndex(index);
       },
     );
   }
+
+  Widget _itemForIndex(int index){
+    if (index >= _viewModel.moviesCount()) {
+      return Center(child: CircularProgressIndicator());
+    } else {
+      return MovieCard(_viewModel.movieForIndex(index));
+    }
+
+  }
+
 }
