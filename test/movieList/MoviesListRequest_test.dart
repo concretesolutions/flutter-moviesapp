@@ -6,7 +6,7 @@ void main() {
   MoviesListRequest sut;
 
   setUp(() {
-    sut = MoviesListRequest();
+    sut = MoviesListRequest(5);
   });
 
   group("MoviesListRequest -", () {
@@ -15,7 +15,7 @@ void main() {
     });
 
     test("Parameters", () {
-      expect(sut.parameters, {"page": "15"});
+      expect(sut.parameters, {"page": "5"});
     });
 
     test("Path", () {

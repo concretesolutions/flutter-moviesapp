@@ -19,9 +19,7 @@ class _MoviesPageState extends State<MoviesPage> {
   @override
   void initState() {
     super.initState();
-    SchedulerBinding.instance.addPostFrameCallback((_) {
-      _viewModel.fetchMovies();
-    });
+    _fetchMovies();
   }
 
   @override
@@ -38,10 +36,16 @@ class _MoviesPageState extends State<MoviesPage> {
     );
   }
 
+  void _fetchMovies() {
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      _viewModel.fetchMovies();
+    });
+  }
+
   Widget _body() {
     switch (_viewModel.responseController.status) {
       case Status.LOADING:
-        return Center(child: CircularProgressIndicator());
+        return _loading();
 
       case Status.ERROR:
         return Center(child: Text(_viewModel.responseController.message));
@@ -63,20 +67,32 @@ class _MoviesPageState extends State<MoviesPage> {
         mainAxisSpacing: 8,
         crossAxisSpacing: 8,
       ),
-      itemCount: _viewModel.moviesCount() + 2,
+      itemCount: _viewModel.itemsCount(),
       itemBuilder: (BuildContext context, int index) {
         return _itemForIndex(index);
       },
     );
   }
 
-  Widget _itemForIndex(int index){
-    if (index >= _viewModel.moviesCount()) {
-      return Center(child: CircularProgressIndicator());
-    } else {
+  Widget _itemForIndex(int index) {
+    final moviesCount = _viewModel.moviesCount();
+    if (index < moviesCount) {
       return MovieCard(_viewModel.movieForIndex(index));
+    } else if (index == moviesCount) {
+      _handleNewPage();
+      return _loading();
+    } else {
+      return _loading();
     }
-
   }
 
+  Widget _loading() {
+    return Center(child: CircularProgressIndicator());
+  }
+
+  void _handleNewPage() {
+    if (_viewModel.shouldFetchNewPage()) {
+      _fetchMovies();
+    }
+  }
 }
