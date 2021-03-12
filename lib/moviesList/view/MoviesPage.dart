@@ -4,14 +4,13 @@ import 'package:flutter/scheduler.dart';
 import 'package:moviesapp/moviesList/view/MovieCard.dart';
 import 'package:moviesapp/moviesList/viewModel/MoviesListViewModel.dart';
 import 'package:moviesapp/network/APIResponse.dart';
+import 'package:moviesapp/view/ErrorPage.dart';
 import 'package:provider/provider.dart';
 
 class MoviesPage extends StatefulWidget {
   @override
   _MoviesPageState createState() => _MoviesPageState();
 }
-
-ScrollController _scrollController = new ScrollController();
 
 class _MoviesPageState extends State<MoviesPage> {
   MoviesListViewModel _viewModel;
@@ -48,7 +47,7 @@ class _MoviesPageState extends State<MoviesPage> {
         return _loading();
 
       case Status.ERROR:
-        return Center(child: Text(_viewModel.responseController.message));
+        return _error();
 
       case Status.COMPLETED:
         return _movieGrid();
@@ -60,7 +59,6 @@ class _MoviesPageState extends State<MoviesPage> {
 
   GridView _movieGrid() {
     return GridView.builder(
-      controller: _scrollController,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         childAspectRatio: 200 / 360,
@@ -94,5 +92,11 @@ class _MoviesPageState extends State<MoviesPage> {
     if (_viewModel.shouldFetchNewPage()) {
       _fetchMovies();
     }
+  }
+
+  Widget _error() {
+   return ErrorPage((){
+     _fetchMovies();
+   });
   }
 }
