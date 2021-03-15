@@ -6,6 +6,8 @@ class Movies implements Decodable {
   int totalPages;
   int totalResults;
 
+  Movies({this.list, this.page, this.totalPages, this.totalResults});
+
   @override
   Decodable fromJson(Map<String, dynamic> json) {
     final jsonList = json["results"] as List;
@@ -23,6 +25,8 @@ class Movie {
   String overview;
   String poster;
   String releaseDate;
+
+  Movie({this.id, this.title, this.overview, this.poster, this.releaseDate});
 
   Movie.fromJSON(Map<String, dynamic> json) {
     id = json["id"];

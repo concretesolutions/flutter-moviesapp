@@ -8,12 +8,14 @@ class APIClientMock implements APIClient {
   bool didCallRequest = false;
   bool didCallRequestDecodable = false;
   bool shouldReturnError = false;
+  APIError apiErrorToReturn = APIError("Request failed", 500);
   Decodable decodableToReturn;
-  APIError apiErrorToReturn;
+  APIRequest requestPassed;
 
   @override
   Future<Result> request(APIRequest request) async {
     didCallRequest = true;
+    requestPassed = request;
     if (shouldReturnError) {
       return Result.error(apiErrorToReturn);
     } else {
@@ -25,6 +27,7 @@ class APIClientMock implements APIClient {
   Future<Result<Decodable>> requestDecodable(
       APIRequest request, Decodable type) async {
     didCallRequestDecodable = true;
+    requestPassed = request;
     if (shouldReturnError) {
       return Result.error(apiErrorToReturn);
     } else {
