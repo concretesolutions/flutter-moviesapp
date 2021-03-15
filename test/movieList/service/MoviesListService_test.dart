@@ -4,6 +4,7 @@ import 'package:moviesapp/moviesList/service/MoviesListService.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:moviesapp/network/Result.dart';
 import '../../mocks/APIClientMock.dart';
+import '../../stubs/MovieStubs.dart';
 
 void main() {
   MoviesListService sut;
@@ -13,17 +14,8 @@ void main() {
   setUp(() {
     apiMock = APIClientMock();
     sut = MoviesListService(apiMock);
-    Movie movie = Movie(
-        id: 10,
-        title: "Foo",
-        overview: "Bar",
-        poster: "Zoo",
-        releaseDate: "Too");
-    movies = Movies(
-        list: [movie, movie, movie],
-        page: 10,
-        totalPages: 100,
-        totalResults: 200);
+    Movie movie = MovieStub.stub(10, "Foo");
+    movies = MoviesStub.stub([movie, movie, movie]);
   });
 
   group("MoviesListService", () {
