@@ -15,8 +15,6 @@ class MovieCard extends StatefulWidget {
 class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
   AnimationController animationController;
   Animation<double> animation;
-  bool _isLoading = true; 
-  Image _movieCoverImage;
 
   @override
   void initState() {
@@ -33,12 +31,12 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
   }
 
   Widget _cardContentLoading() {
-    if (_isLoading) {
-      _cardImageDownload();
-      return Center(child: CircularProgressIndicator(),);
-    } else {
-      return Center(child: _cardContent(),);
-    }
+    return Stack(
+      children: [
+        Center(child: CircularProgressIndicator()),
+        Center(child: _cardContent()),
+      ],
+    );
   }
 
   Widget _cardContent() {
@@ -57,7 +55,7 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
     return Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [_movieCoverImage]);
+        children: [_cardImage()]);
   }
 
   Widget _cardMovieTitle() {
@@ -71,25 +69,24 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
     ));
   }
 
-  void _cardImageDownload() {
+  Widget _cardImage() {
     MediaQueryData queryData;
     queryData = MediaQuery.of(context);
 
     final posterURL = ImageURLBuilder.build(widget._movie.poster);
-    _movieCoverImage = Image.network(
+    final _image = Image.network(
       posterURL,
       width: queryData.size.width,
       fit: BoxFit.fill,
+      loadingBuilder: (context, child, progress) => progress == null ? child : CircularProgressIndicator(),
     );
 
-    _movieCoverImage.image
+    _image.image
         .resolve(new ImageConfiguration())
         .addListener(ImageStreamListener((info, call) {
       animationController.forward();
-      setState(() {
-        _isLoading = false;     
-      });
     }));
+    return _image;
   }
 
   @override
