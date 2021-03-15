@@ -18,7 +18,7 @@ void main() {
     movies = MoviesStub.stub([movie, movie, movie]);
   });
 
-  group("MoviesListService", () {
+  group("MoviesListService -", () {
     group("Fetch Movies", () {
       test("On Success", () async {
         apiMock.decodableToReturn = movies;

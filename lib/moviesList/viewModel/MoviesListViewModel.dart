@@ -24,7 +24,7 @@ class MoviesListViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void fetchMovies() async {
+  Future<void> fetchMovies() async {
     _handleLoading();
     final response = await _service.fetchMovies(_page);
     switch (response.result) {
@@ -47,7 +47,6 @@ class MoviesListViewModel extends ChangeNotifier {
       Movies movies = value;
       this._movies.addAll(movies.list);
       this._totalPages = movies.totalPages;
-      print("Total pages: $_totalPages");
       setResponse(Response.completed("Success"));
     } else {
       _handleError("Unable to decode movies model");
