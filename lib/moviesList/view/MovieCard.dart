@@ -27,7 +27,11 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Card(color: Colors.deepPurple, child: (_cardContentLoading()));
+    return Card(
+      color: Colors.deepPurple, 
+      child: _cardContentLoading(),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+    );
   }
 
   Widget _cardContentLoading() {
