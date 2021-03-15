@@ -29,7 +29,11 @@ jobs:
         run: flutter pub get
 
       - name: Test
-        run: flutter test
+        env:
+          APIKEY: ${{ secrets.APIKEY }}
+        run: flutter test --dart-define=APIKEY=$APIKEY
 
       - name: Build
-        run: flutter build apk
+        env:
+          APIKEY: ${{ secrets.APIKEY }}
+        run: flutter build apk --dart-define=APIKEY=$APIKEY
