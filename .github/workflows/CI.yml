@@ -9,6 +9,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: API Secret
+        env:
+          APIKEY: ${{ secrets.APIKEY }}
+
       - name: Setup Java version 12.x
         uses: actions/setup-java@v1
         with:
@@ -29,7 +33,7 @@ jobs:
         run: flutter pub get
 
       - name: Test
-        run: flutter test --dart-define=APIKEY='0000000000000'
+        run: flutter test --dart-define=APIKEY=$APIKEY
 
       - name: Build
-        run: flutter build apk --dart-define=APIKEY='0000000000000'
+        run: flutter build apk --dart-define=APIKEY=$APIKEY
