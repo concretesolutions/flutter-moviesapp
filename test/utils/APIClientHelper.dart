@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:moviesapp/network/APIClient.dart';
 
 import '../mocks/MockClient.dart';
