@@ -11,7 +11,7 @@ extension MovieStub on Movie {
         id: id ?? 10,
         title: title ?? "Foo",
         overview: overview ?? "Bar",
-        poster: poster ?? "Zoo",
+        poster: poster ?? "/Zoo",
         releaseDate: releaseDate ?? "Too");
   }
 }
