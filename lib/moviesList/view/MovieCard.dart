@@ -52,6 +52,7 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
       ),
     );
   }
+  
   Widget _cardImageContainer() {
     return Column(
         mainAxisSize: MainAxisSize.max,
