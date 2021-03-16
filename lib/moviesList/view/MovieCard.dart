@@ -27,7 +27,11 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Card(color: Colors.deepPurple, child: (_cardContentLoading()));
+    return Card(
+      color: Colors.deepPurple, 
+      child: _cardContentLoading(),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
+    );
   }
 
   Widget _cardContentLoading() {
@@ -78,6 +82,7 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
       posterURL,
       width: queryData.size.width,
       fit: BoxFit.fill,
+      loadingBuilder: (context, child, progress) => progress == null ? child : CircularProgressIndicator(),
     );
 
     _image.image
@@ -86,5 +91,11 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
       animationController.forward();
     }));
     return _image;
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
   }
 }
