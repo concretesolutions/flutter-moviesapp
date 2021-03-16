@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -7,7 +8,6 @@ import 'package:moviesapp/moviesList/viewModel/MoviesListViewModel.dart';
 import 'package:moviesapp/network/APIResponse.dart' as response;
 import 'package:moviesapp/view/ErrorPage.dart';
 import 'package:provider/provider.dart';
-import 'package:image_test_utils/image_test_utils.dart';
 
 import '../../stubs/MovieStubs.dart';
 import '../../utils/utils.dart';
@@ -46,29 +46,23 @@ void main() {
     });
 
     testWidgets("List state", (WidgetTester tester) async {
-      provideMockedNetworkImages(() async {
-        bool didCallFetchNewPage = false;
-        when(viewModel.responseController)
-            .thenReturn(response.Response.completed("..."));
-        when(viewModel.moviesCount()).thenReturn(2);
-        when(viewModel.itemsCount()).thenReturn(4);
-        when(viewModel.movieForIndex(0)).thenReturn(MovieStub.stub());
-        when(viewModel.movieForIndex(1)).thenReturn(MovieStub.stub());
-        when(viewModel.shouldFetchNewPage()).thenAnswer((realInvocation) {
-          didCallFetchNewPage = true;
-          return false;
-        });
-
-        await tester.pumpWidget(makeTestable(sut));
-        final gridView = find.byType(GridView);
-        final cards = find.byType(MovieCard);
-        final loadings = find.byType(CircularProgressIndicator);
-
-        expect(gridView, findsOneWidget);
-        expect(cards, findsNWidgets(2));
-        expect(loadings, findsNWidgets(2));
-        expect(didCallFetchNewPage, true);
+      bool didCallFetchNewPage = false;
+      when(viewModel.responseController)
+          .thenReturn(response.Response.completed("..."));
+      when(viewModel.moviesCount()).thenReturn(0);
+      when(viewModel.itemsCount()).thenReturn(2);
+      when(viewModel.shouldFetchNewPage()).thenAnswer((realInvocation) {
+        didCallFetchNewPage = true;
+        return false;
       });
+
+      await tester.pumpWidget(makeTestable(sut));
+      final gridView = find.byType(GridView);
+      final loadings = find.byType(CircularProgressIndicator);
+
+      expect(gridView, findsOneWidget);
+      expect(loadings, findsNWidgets(2));
+      expect(didCallFetchNewPage, true);
     });
   });
 }
