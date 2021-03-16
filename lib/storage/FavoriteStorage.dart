@@ -1,58 +1,61 @@
 import 'package:localstorage/localstorage.dart';
 import 'package:moviesapp/moviesList/model/Movie.dart';
-import 'package:moviesapp/storage/StorageProtocol.dart';
+import 'package:moviesapp/storage/FavoriteStorageProtocol.dart';
 
-class FavoriteStorage implements StorageProtocol {
-  LocalStorage storage = LocalStorage('favorites');
-  FavoritesList list = FavoritesList();
+class FavoriteStorage implements FavoriteStorageProtocol {
+  LocalStorage storage;
 
-  @override
-  void deleteItem(String key) {
-    storage.deleteItem(key);
+  FavoriteStorage([this.storage]) {
+    storage = storage ?? LocalStorage('favorites');
+  }
+
+  void _save(List<Movie> movies) {
+    FavoritesList favoriteList = FavoritesList(movies);
+    storage.setItem('favorites', favoriteList.toJSONEncodable());
+  }
+
+  List<Movie> _read() {
+    final List favorites = storage.getItem('favorites');
+    List<Movie> listMovies =
+        favorites.map((favorite) => Movie.fromJSON(favorite));
+    return listMovies;
   }
 
   @override
-  dynamic getItem(String key) {
-    return storage.getItem(key);
-  }
-
-  @override
-  void setItem(String key, value) {
-    storage.setItem(key, value);
-  }
-
-  bool contentItem(int id) {
-    List<Movie> favorites = getItem('favorites');
-    if (favorites.any((item) => item.id == id)) {
-      return true;
+  void favoriteMovie(Movie movie) {
+    var favorites = _read();
+    if (favorites == null) {
+      favorites = [movie];
+    } else {
+      favorites.add(movie);
     }
-    return false;
+    _save(favorites);
   }
 
-  void favoriteItem(Movie movie) {
-    List<Movie> favorites = getItem('favorites');
-    favorites.add(movie);
-    list.items = favorites;
-    setItem('favorites', list.toJSONEncodable());
+  @override
+  List<Movie> getFavoritesMovies() {
+    return _read();
   }
 
-  void unfavoriteItem(Movie movie) {
-    List<Movie> favorites = getItem('favorites');
-    favorites.removeWhere((item) => item.id == movie.id);
-    list.items = favorites;
-    setItem('avorites', list.toJSONEncodable());
+  @override
+  bool isFavoriteMovie(int id) {
+    final favorites = _read();
+    return favorites.any((movie) => movie.id == id);
   }
 
-  FavoritesList readFavorites() {
-    return getItem('favorites') as FavoritesList;
+  @override
+  void unfavoriteMovie(int id) {
+    final favorites = _read();
+    favorites.removeWhere((item) => item.id == id);
+    _save(favorites);
   }
 }
 
 class FavoritesList {
   List<Movie> items;
 
-  FavoritesList() {
-    items = new List();
+  FavoritesList(this.items) {
+    items = items ?? List.empty();
   }
 
   toJSONEncodable() {
