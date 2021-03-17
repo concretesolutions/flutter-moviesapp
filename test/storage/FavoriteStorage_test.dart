@@ -70,5 +70,15 @@ void main() {
 
       expect(contentItem, false);
     });
+
+    test("getFavoriteMovies", () {
+      when(storage.getItem("favorites"))
+          .thenReturn(favorites.toJSONEncodable());
+
+      final favoritesMovies = sut.getFavoritesMovies();
+
+      expect(favoritesMovies.length, 2);
+      expect(favoritesMovies.first.title, "Bar");
+    });
   });
 }
