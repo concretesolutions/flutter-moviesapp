@@ -19,14 +19,16 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    animationController = AnimationController(duration: const Duration(milliseconds: 500), vsync: this);
-    animation = CurvedAnimation(parent: animationController, curve: Curves.easeIn);
+    animationController = AnimationController(
+        duration: const Duration(milliseconds: 500), vsync: this);
+    animation =
+        CurvedAnimation(parent: animationController, curve: Curves.easeIn);
   }
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.deepPurple, 
+      color: Colors.deepPurple,
       child: (_cardContentLoading()),
       clipBehavior: Clip.antiAliasWithSaveLayer,
     );
@@ -35,9 +37,13 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
   Widget _cardContentLoading() {
     if (_movieCoverImage == null) {
       _cardImageDownload();
-      return Center(child: CircularProgressIndicator(),);
+      return Center(
+        child: CircularProgressIndicator(),
+      );
     } else {
-      return Center(child: _cardContent(),);
+      return Center(
+        child: _cardContent(),
+      );
     }
   }
 
@@ -52,7 +58,7 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
       ),
     );
   }
-  
+
   Widget _cardImageContainer() {
     return Column(
         mainAxisSize: MainAxisSize.max,
@@ -62,17 +68,15 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
 
   Widget _cardMovieTitle() {
     return Expanded(
-      child: Container(
-        child: Center(
+        child: Container(
+      child: Center(
           child: Text(
-            widget._movie.title,
-            maxLines: 2,
-            style: TextStyle(color: CupertinoColors.systemYellow),
-            textAlign: TextAlign.center,
-          )
-        ),
-      )
-    );
+        widget._movie.title,
+        maxLines: 2,
+        style: TextStyle(color: CupertinoColors.systemYellow),
+        textAlign: TextAlign.center,
+      )),
+    ));
   }
 
   void _cardImageDownload() {
@@ -89,12 +93,12 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
     image.image
         .resolve(new ImageConfiguration())
         .addListener(ImageStreamListener((info, call) {
-          if (mounted) {
-            animationController.forward();
-            setState(() {  
-              _movieCoverImage = image; 
-            });
-          }
+      if (mounted) {
+        animationController.forward();
+        setState(() {
+          _movieCoverImage = image;
+        });
+      }
     }));
   }
 
