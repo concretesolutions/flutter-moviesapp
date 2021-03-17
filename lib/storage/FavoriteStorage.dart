@@ -40,7 +40,7 @@ class FavoriteStorage implements StorageProtocol {
     List<Movie> favorites = getItem('favorites');
     favorites.removeWhere((item) => item.id == movie.id);
     list.items = favorites;
-    setItem('avorites', list.toJSONEncodable());
+    setItem('favorites', list.toJSONEncodable());
   }
 
   FavoritesList readFavorites() {

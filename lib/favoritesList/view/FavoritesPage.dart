@@ -4,7 +4,8 @@ import 'package:moviesapp/moviesList/service/MoviesListService.dart';
 class FavoritesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    MoviesListService().fetchMovies();
+    int page;
+    MoviesListService().fetchMovies(page);
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
           backgroundColor: CupertinoColors.systemYellow,
