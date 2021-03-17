@@ -99,12 +99,13 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
   void _selectedFavoriteButtonState() {
     final favoriteStorage = FavoriteStorage();
     setState(() {
-      if (favoriteStorage.) {
-        _iconColor = Colors.red;
-        FavoriteStorage().favoriteItem(movie);
-      } else {
+      if (favoriteStorage.isFavoriteMovie(movie.id)) {
         _iconColor = Colors.black54;
-        FavoriteStorage().unfavoriteItem(movie);
+        favoriteStorage.unfavoriteMovie(movie.id);
+      } else {
+        _iconColor = Colors.red;
+        favoriteStorage.favoriteMovie(movie);
+
       }
     });
   }
