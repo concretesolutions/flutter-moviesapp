@@ -4,10 +4,15 @@ import 'package:flutter/scheduler.dart';
 import 'package:moviesapp/moviesList/view/MovieCard.dart';
 import 'package:moviesapp/moviesList/viewModel/MoviesListViewModel.dart';
 import 'package:moviesapp/network/APIResponse.dart';
+import 'package:moviesapp/utils/ImageLoader.dart';
 import 'package:moviesapp/view/ErrorPage.dart';
 import 'package:provider/provider.dart';
 
 class MoviesPage extends StatefulWidget {
+  final ImageLoader _loader;
+
+  MoviesPage(this._loader);
+
   @override
   _MoviesPageState createState() => _MoviesPageState();
 }
@@ -75,7 +80,7 @@ class _MoviesPageState extends State<MoviesPage> {
   Widget _itemForIndex(int index) {
     final moviesCount = _viewModel.moviesCount();
     if (index < moviesCount) {
-      return MovieCard(_viewModel.movieForIndex(index));
+      return MovieCard(_viewModel.movieForIndex(index), widget._loader);
     } else if (index == moviesCount) {
       _handleNewPage();
       return _loading();
@@ -95,8 +100,8 @@ class _MoviesPageState extends State<MoviesPage> {
   }
 
   Widget _error() {
-   return ErrorPage((){
-     _fetchMovies();
-   });
+    return ErrorPage(() {
+      _fetchMovies();
+    });
   }
 }

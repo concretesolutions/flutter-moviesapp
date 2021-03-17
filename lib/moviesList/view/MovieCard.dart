@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:moviesapp/moviesList/model/Movie.dart';
-import 'package:moviesapp/utils/ImageURLBuilder.dart';
+import 'package:moviesapp/utils/ImageLoader.dart';
 
 class MovieCard extends StatefulWidget {
   final Movie _movie;
-  MovieCard(this._movie);
+  final ImageLoader _loader;
+
+  MovieCard(this._movie, this._loader);
 
   @override
   _MovieCardState createState() => _MovieCardState();
@@ -76,12 +78,8 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
     MediaQueryData queryData;
     queryData = MediaQuery.of(context);
 
-    final posterURL = ImageURLBuilder.build(widget._movie.poster);
-    final _image = Image.network(
-      posterURL,
-      width: queryData.size.width,
-      fit: BoxFit.fill,
-    );
+    final _image = widget._loader
+        .loadCardImage(widget._movie.poster, queryData.size.width);
 
     _image.image
         .resolve(new ImageConfiguration())
