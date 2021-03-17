@@ -18,7 +18,7 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
   Animation<double> animation;
   Image _movieCoverImage;
   Color _iconColor = Colors.black54;
-  Movie movie;
+  // Movie movie
 
   @override
   void initState() {
@@ -91,13 +91,14 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
         child: IconButton(
       icon: Icon(CupertinoIcons.heart_fill, color: _iconColor),
       onPressed: () {
-        _selectedFavoriteButtonState();
+        _selectedFavoriteButtonState(widget._movie);
       },
     ));
   }
 
-  void _selectedFavoriteButtonState() {
+  void _selectedFavoriteButtonState(Movie movie) {
     final favoriteStorage = FavoriteStorage();
+
     setState(() {
       if (favoriteStorage.isFavoriteMovie(movie.id)) {
         _iconColor = Colors.black54;
@@ -105,7 +106,6 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
       } else {
         _iconColor = Colors.red;
         favoriteStorage.favoriteMovie(movie);
-
       }
     });
   }
