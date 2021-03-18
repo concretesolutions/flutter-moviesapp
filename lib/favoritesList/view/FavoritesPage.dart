@@ -5,9 +5,8 @@ class FavoritesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        backgroundColor: CupertinoColors.systemYellow,
-        middle: const Text("Favorites")
-      ),
+          backgroundColor: CupertinoColors.systemYellow,
+          middle: const Text("Favorites")),
       child: Center(
         child: Text("FavoritesPage"),
       ),
