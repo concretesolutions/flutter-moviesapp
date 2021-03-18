@@ -17,12 +17,12 @@ class MovieCard extends StatefulWidget {
 class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
   AnimationController animationController;
   Animation<double> animation;
-  Color _iconColor = Colors.black54;
   MovieCardViewModel _viewModel;
 
   @override
   void initState() {
     super.initState();
+    _viewModel = MovieCardViewModel(widget._movie);
     animationController = AnimationController(
         duration: const Duration(milliseconds: 500), vsync: this);
     animation =
@@ -78,28 +78,26 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
   Widget _cardMovieTitle() {
     return Expanded(
         child: Container(
-          child: Center(
-              child: Text(
-                widget._movie.title,
-                maxLines: 2,
-                style: TextStyle(color: CupertinoColors.systemYellow),
-                textAlign: TextAlign.center,
-              )),
-        ));
+      child: Center(
+          child: Text(
+        widget._movie.title,
+        maxLines: 2,
+        style: TextStyle(color: CupertinoColors.systemYellow),
+        textAlign: TextAlign.center,
+      )),
+    ));
   }
 
   Widget _favoriteButton() {
-
-    _viewModel.getItemColor();
     return Center(
         child: IconButton(
-          icon: Icon(CupertinoIcons.heart_fill, color: _iconColor),
-          onPressed: () {
-            setState(() {
-              _viewModel.favoriteButtonState(widget._movie);
-            });
-          },
-        ));
+      icon: Icon(CupertinoIcons.heart_fill, color: _viewModel.getItemColor()),
+      onPressed: () {
+        setState(() {
+          _viewModel.favoriteButtonState();
+        });
+      },
+    ));
   }
 
   Widget _cardImage() {

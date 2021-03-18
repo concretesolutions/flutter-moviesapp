@@ -3,27 +3,24 @@ import 'package:moviesapp/moviesList/model/Movie.dart';
 import 'package:moviesapp/storage/FavoriteStorage.dart';
 
 class MovieCardViewModel {
-  Color _iconColor = Colors.black54;
   Movie movie;
+  final favoriteStorage = FavoriteStorage();
 
-  void favoriteButtonState(Movie movie) {
-    final favoriteStorage = FavoriteStorage();
+  MovieCardViewModel(this.movie);
 
+  void favoriteButtonState() {
     if (favoriteStorage.isFavoriteMovie(movie.id)) {
-      _iconColor = Colors.black54;
       favoriteStorage.unfavoriteMovie(movie.id);
     } else {
-      _iconColor = Colors.red;
       favoriteStorage.favoriteMovie(movie);
     }
   }
 
-  void getItemColor() {
-    final favoriteStorage = FavoriteStorage();
-    if (favoriteStorage.isFavoriteMovie(movie.id) == true) {
-      _iconColor = Colors.red;
+  Color getItemColor() {
+    if (favoriteStorage.isFavoriteMovie(movie.id)) {
+      return Colors.red;
     } else {
-      _iconColor = Colors.black54;
+      return Colors.black54;
     }
   }
 }
