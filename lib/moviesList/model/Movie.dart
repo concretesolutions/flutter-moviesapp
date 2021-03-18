@@ -35,4 +35,16 @@ class Movie {
     poster = json["poster_path"];
     releaseDate = json["release_date"];
   }
+
+  toJSONEncodable() {
+    Map<String, dynamic> json = new Map();
+
+    json["id"] = id;
+    json["title"] = title;
+    json["overview"] = overview;
+    json["poster_path"] = poster;
+    json["release_date"] = releaseDate;
+
+    return json;
+  }
 }
