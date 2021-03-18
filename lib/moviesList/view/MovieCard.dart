@@ -2,13 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:moviesapp/moviesList/model/Movie.dart';
 import 'package:moviesapp/utils/ImageDownloader.dart';
-import 'package:moviesapp/moviesList/viewModel/MovieCardViewModel.dart';
 
 class MovieCard extends StatefulWidget {
   final Movie _movie;
   final ImageDownloader _loader;
+  final bool _isFavorite;
+  final Function(Movie) _favoriteSelection;
 
-  MovieCard(this._movie, this._loader);
+  MovieCard(
+      this._movie, this._loader, this._isFavorite, this._favoriteSelection);
 
   @override
   _MovieCardState createState() => _MovieCardState();
@@ -17,12 +19,12 @@ class MovieCard extends StatefulWidget {
 class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
   AnimationController animationController;
   Animation<double> animation;
-  MovieCardViewModel _viewModel;
+  bool isFavorited;
 
   @override
   void initState() {
     super.initState();
-    _viewModel = MovieCardViewModel(widget._movie);
+    isFavorited = widget._isFavorite;
     animationController = AnimationController(
         duration: const Duration(milliseconds: 500), vsync: this);
     animation =
@@ -91,10 +93,12 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
   Widget _favoriteButton() {
     return Center(
         child: IconButton(
-      icon: Icon(CupertinoIcons.heart_fill, color: _viewModel.getItemColor()),
+      icon: Icon(CupertinoIcons.heart_fill,
+          color: isFavorited ? Colors.red : Colors.black54),
       onPressed: () {
+        widget._favoriteSelection(widget._movie);
         setState(() {
-          _viewModel.favoriteButtonState();
+          isFavorited = !isFavorited;
         });
       },
     ));

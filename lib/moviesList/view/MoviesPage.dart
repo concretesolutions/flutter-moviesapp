@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:moviesapp/moviesList/view/MovieCard.dart';
+import 'package:moviesapp/moviesList/viewModel/MovieCardViewModel.dart';
 import 'package:moviesapp/moviesList/viewModel/MoviesListViewModel.dart';
 import 'package:moviesapp/network/APIResponse.dart';
 import 'package:moviesapp/utils/ImageDownloader.dart';
@@ -80,13 +81,21 @@ class _MoviesPageState extends State<MoviesPage> {
   Widget _itemForIndex(int index) {
     final moviesCount = _viewModel.moviesCount();
     if (index < moviesCount) {
-      return MovieCard(_viewModel.movieForIndex(index), widget._loader);
+      return _card(index);
     } else if (index == moviesCount) {
       _handleNewPage();
       return _loading();
     } else {
       return _loading();
     }
+  }
+
+  Widget _card(int index) {
+    final movie = _viewModel.movieForIndex(index);
+    final isFavorite = _viewModel.isMovieFavorite(index);
+    return MovieCard(movie, widget._loader, isFavorite, (movie) {
+      _viewModel.handleFavoriteSelection(movie);
+    });
   }
 
   Widget _loading() {

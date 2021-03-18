@@ -10,8 +10,8 @@ void main() {
   MovieCard sut;
 
   setUp(() {
-    sut = MovieCard(
-        MovieStub.stub(10, "Best movie in the world"), MockImageLoader());
+    sut = MovieCard(MovieStub.stub(10, "Best movie in the world"),
+        MockImageLoader(), true, (movie) {});
   });
 
   group("MovieCard", () {
