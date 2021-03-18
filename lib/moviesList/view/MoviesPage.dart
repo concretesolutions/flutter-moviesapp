@@ -4,12 +4,12 @@ import 'package:flutter/scheduler.dart';
 import 'package:moviesapp/moviesList/view/MovieCard.dart';
 import 'package:moviesapp/moviesList/viewModel/MoviesListViewModel.dart';
 import 'package:moviesapp/network/APIResponse.dart';
-import 'package:moviesapp/utils/ImageLoader.dart';
+import 'package:moviesapp/utils/ImageDownloader.dart';
 import 'package:moviesapp/view/ErrorPage.dart';
 import 'package:provider/provider.dart';
 
 class MoviesPage extends StatefulWidget {
-  final ImageLoader _loader;
+  final ImageDownloader _loader;
 
   MoviesPage(this._loader);
 

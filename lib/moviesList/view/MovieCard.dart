@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:moviesapp/moviesList/model/Movie.dart';
-import 'package:moviesapp/utils/ImageLoader.dart';
+import 'package:moviesapp/utils/ImageDownloader.dart';
 
 class MovieCard extends StatefulWidget {
   final Movie _movie;
-  final ImageLoader _loader;
+  final ImageDownloader _loader;
 
   MovieCard(this._movie, this._loader);
 
