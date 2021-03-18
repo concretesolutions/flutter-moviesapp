@@ -9,6 +9,7 @@ import '../stubs/MovieStubs.dart';
 void main() {
   FavoriteStorage sut;
   Movie movie;
+  Movie movie2;
   MockLocalStorage storage;
   FavoritesList favorites;
 
@@ -16,7 +17,7 @@ void main() {
     storage = MockLocalStorage();
     sut = FavoriteStorage(storage);
     movie = MovieStub.stub(10, "Bar");
-    final movie2 = MovieStub.stub(12, "Ber");
+    movie2 = MovieStub.stub(12, "Ber");
     final List<Movie> movies = [movie, movie2];
     favorites = FavoritesList(movies);
   });
@@ -45,8 +46,6 @@ void main() {
     });
 
     test("favoriteMovie", () {
-      final movie2 = MovieStub.stub(12, "Ber");
-
       when(storage.getItem("favorites"))
           .thenReturn(favorites.toJSONEncodable());
 
@@ -57,9 +56,7 @@ void main() {
     });
 
     test("unFavoriteMovie", () {
-      final movie2 = MovieStub.stub(12, "Ber");
-      final List<Movie> movies = [movie];
-      favorites = FavoritesList(movies);
+      favorites = FavoritesList([movie]);
 
       when(storage.getItem("favorites"))
           .thenReturn(favorites.toJSONEncodable());
