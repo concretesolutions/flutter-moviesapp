@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:moviesapp/moviesList/model/Movie.dart';
 import 'package:moviesapp/utils/ImageURLBuilder.dart';
 import 'package:moviesapp/storage/FavoriteStorage.dart';
@@ -18,7 +19,7 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
   Animation<double> animation;
   Image _movieCoverImage;
   Color _iconColor = Colors.black54;
-  // Movie movie
+  Movie movie;
 
   @override
   void initState() {
@@ -55,13 +56,19 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
     return FadeTransition(
       opacity: animation,
       child: Column(
-        children: [
-          _cardImageContainer(),
-          Padding(
-            padding: const EdgeInsets.only(left: 8, right: 8),
-            child: Row(children: [_cardMovieTitle(), _favoriteButton()]),
-          )
-        ],
+        children: [_cardImageContainer(), _titleFavoriteRow()],
+      ),
+    );
+  }
+
+  Widget _titleFavoriteRow() {
+    return Flexible(
+      fit: FlexFit.loose,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 8, right: 8),
+        child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [_cardMovieTitle(), _favoriteButton()]),
       ),
     );
   }
@@ -87,16 +94,26 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
   }
 
   Widget _favoriteButton() {
+    getItemColor();
     return Center(
         child: IconButton(
       icon: Icon(CupertinoIcons.heart_fill, color: _iconColor),
       onPressed: () {
-        _selectedFavoriteButtonState(widget._movie);
+        _favoriteButtonState(widget._movie);
       },
     ));
   }
 
-  void _selectedFavoriteButtonState(Movie movie) {
+  void getItemColor() {
+    final favoriteStorage = FavoriteStorage();
+    if (favoriteStorage.isFavoriteMovie(widget._movie.id) == true) {
+      _iconColor = Colors.red;
+    } else {
+      _iconColor = Colors.black54;
+    }
+  }
+
+  void _favoriteButtonState(Movie movie) {
     final favoriteStorage = FavoriteStorage();
 
     setState(() {
