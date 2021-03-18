@@ -20,7 +20,7 @@ class _TabBarState extends State<TabBar> {
       create: (context) => MoviesListViewModel(),
       child: MoviesPage(ImageDownloader()),
     ),
-    FavoritesPage(),
+    FavoritesPage(ImageDownloader()),
   ];
 
   @override

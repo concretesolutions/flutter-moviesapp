@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:moviesapp/moviesList/model/Movie.dart';
-import 'package:moviesapp/utils/ImageURLBuilder.dart';
+import 'package:moviesapp/utils/ImageDownloader.dart';
 
 class FavoriteCard extends StatefulWidget {
   final Movie _movie;
+  final ImageDownloader _downloader;
 
-  FavoriteCard(this._movie);
+  FavoriteCard(this._movie, this._downloader);
 
   @override
   _FavoriteCardState createState() => _FavoriteCardState();
@@ -60,7 +61,6 @@ class _FavoriteCardState extends State<FavoriteCard> {
   }
 
   Widget _image() {
-    final posterURL = ImageURLBuilder.build(widget._movie.poster);
-    return Image.network(posterURL, height: 100);
+    return widget._downloader.loadCardFavoriteImage(widget._movie.poster);
   }
 }

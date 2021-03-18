@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:moviesapp/favoritesList/view/FavoriteCard.dart';
 import 'package:moviesapp/moviesList/model/Movie.dart';
+import 'package:moviesapp/utils/ImageDownloader.dart';
 
 class FavoritesPage extends StatelessWidget {
+  final ImageDownloader _downloader;
+
+  FavoritesPage(this._downloader);
+
   @override
   Widget build(BuildContext context) {
     Movie movie = Movie(
@@ -24,7 +29,7 @@ class FavoritesPage extends StatelessWidget {
             itemBuilder: (BuildContext context, int index) {
               return Container(
                   padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-                  child: FavoriteCard(movie));
+                  child: FavoriteCard(movie, _downloader));
             }),
       ),
     );
