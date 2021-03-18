@@ -66,12 +66,14 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
   Widget _cardMovieTitle() {
     return Expanded(
         child: Container(
-      child: Center(
-          child: Text(widget._movie.title,
+          child: Center(
+            child: Text(widget._movie.title,
               maxLines: 2,
               style: TextStyle(color: CupertinoColors.systemYellow),
-              textAlign: TextAlign.center)),
-    ));
+              textAlign: TextAlign.center)
+              ),
+            )
+          );
   }
 
   Widget _cardImage() {
