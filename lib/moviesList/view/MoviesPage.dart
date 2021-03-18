@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:moviesapp/moviesList/view/MovieCard.dart';
-import 'package:moviesapp/moviesList/viewModel/MovieCardViewModel.dart';
 import 'package:moviesapp/moviesList/viewModel/MoviesListViewModel.dart';
 import 'package:moviesapp/network/APIResponse.dart';
 import 'package:moviesapp/utils/ImageDownloader.dart';

@@ -42,17 +42,17 @@ class _FavoriteCardState extends State<FavoriteCard> {
   Widget _titleReleaseRow() {
     return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [_title(), Spacer(), _release()]);
+        children: [Flexible(child: _title(), fit: FlexFit.tight), _release()]);
   }
 
   Widget _title() {
     return Text(widget._movie.title,
-        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold));
+        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold), maxLines: 1);
   }
 
   Widget _release() {
     return Text(widget._movie.releaseDate,
-        style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal));
+        style: TextStyle(fontSize: 10, fontWeight: FontWeight.normal), maxLines: 1);
   }
 
   Widget _overview() {
