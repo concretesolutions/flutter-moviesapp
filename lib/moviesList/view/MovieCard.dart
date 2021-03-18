@@ -36,25 +36,12 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
   }
 
   Widget _cardContentLoading() {
-<<<<<<< HEAD
-    if (_movieCoverImage == null) {
-      _cardImageDownload();
-      return Center(
-        child: CircularProgressIndicator(),
-      );
-    } else {
-      return Center(
-        child: _cardContent(),
-      );
-    }
-=======
     return Stack(
       children: [
         Center(child: CircularProgressIndicator()),
         Center(child: _cardContent()),
       ],
     );
->>>>>>> develop
   }
 
   Widget _cardContent() {
@@ -79,16 +66,6 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
   Widget _cardMovieTitle() {
     return Expanded(
         child: Container(
-<<<<<<< HEAD
-      child: Center(
-          child: Text(
-        widget._movie.title,
-        maxLines: 2,
-        style: TextStyle(color: CupertinoColors.systemYellow),
-        textAlign: TextAlign.center,
-      )),
-    ));
-=======
           child: Center(
             child: Text(widget._movie.title,
               maxLines: 2,
@@ -97,7 +74,6 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
               ),
             )
           );
->>>>>>> develop
   }
 
   Widget _cardImage() {
@@ -110,16 +86,7 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
     _image.image
         .resolve(new ImageConfiguration())
         .addListener(ImageStreamListener((info, call) {
-<<<<<<< HEAD
-      if (mounted) {
-        animationController.forward();
-        setState(() {
-          _movieCoverImage = image;
-        });
-      }
-=======
       animationController.forward();
->>>>>>> develop
     }));
     return _image;
   }
