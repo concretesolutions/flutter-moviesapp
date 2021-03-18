@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:moviesapp/moviesList/model/Movie.dart';
-import 'package:moviesapp/utils/ImageURLBuilder.dart';
-import 'package:moviesapp/storage/FavoriteStorage.dart';
+import 'package:moviesapp/utils/ImageDownloader.dart';
+import 'package:moviesapp/moviesList/viewModel/MovieCardViewModel.dart';
 
 class MovieCard extends StatefulWidget {
   final Movie _movie;
+  final ImageDownloader _loader;
 
-  MovieCard(this._movie);
+  MovieCard(this._movie, this._loader);
 
   @override
   _MovieCardState createState() => _MovieCardState();
@@ -17,9 +17,8 @@ class MovieCard extends StatefulWidget {
 class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
   AnimationController animationController;
   Animation<double> animation;
-  Image _movieCoverImage;
   Color _iconColor = Colors.black54;
-  Movie movie;
+  MovieCardViewModel _viewModel;
 
   @override
   void initState() {
@@ -40,16 +39,12 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
   }
 
   Widget _cardContentLoading() {
-    if (_movieCoverImage == null) {
-      _cardImageDownload();
-      return Center(
-        child: CircularProgressIndicator(),
-      );
-    } else {
-      return Center(
-        child: _cardContent(),
-      );
-    }
+    return Stack(
+      children: [
+        Center(child: CircularProgressIndicator()),
+        Center(child: _cardContent()),
+      ],
+    );
   }
 
   Widget _cardContent() {
@@ -77,77 +72,49 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
     return Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [_movieCoverImage]);
+        children: [_cardImage()]);
   }
 
   Widget _cardMovieTitle() {
     return Expanded(
         child: Container(
-      child: Center(
-          child: Text(
-        widget._movie.title,
-        maxLines: 2,
-        style: TextStyle(color: CupertinoColors.systemYellow),
-        textAlign: TextAlign.center,
-      )),
-    ));
+          child: Center(
+              child: Text(
+                widget._movie.title,
+                maxLines: 2,
+                style: TextStyle(color: CupertinoColors.systemYellow),
+                textAlign: TextAlign.center,
+              )),
+        ));
   }
 
   Widget _favoriteButton() {
-    getItemColor();
+
+    _viewModel.getItemColor();
     return Center(
         child: IconButton(
-      icon: Icon(CupertinoIcons.heart_fill, color: _iconColor),
-      onPressed: () {
-        _favoriteButtonState(widget._movie);
-      },
-    ));
+          icon: Icon(CupertinoIcons.heart_fill, color: _iconColor),
+          onPressed: () {
+            setState(() {
+              _viewModel.favoriteButtonState(widget._movie);
+            });
+          },
+        ));
   }
 
-  void getItemColor() {
-    final favoriteStorage = FavoriteStorage();
-    if (favoriteStorage.isFavoriteMovie(widget._movie.id) == true) {
-      _iconColor = Colors.red;
-    } else {
-      _iconColor = Colors.black54;
-    }
-  }
-
-  void _favoriteButtonState(Movie movie) {
-    final favoriteStorage = FavoriteStorage();
-
-    setState(() {
-      if (favoriteStorage.isFavoriteMovie(movie.id)) {
-        _iconColor = Colors.black54;
-        favoriteStorage.unfavoriteMovie(movie.id);
-      } else {
-        _iconColor = Colors.red;
-        favoriteStorage.favoriteMovie(movie);
-      }
-    });
-  }
-
-  void _cardImageDownload() {
+  Widget _cardImage() {
     MediaQueryData queryData;
     queryData = MediaQuery.of(context);
 
-    final posterURL = ImageURLBuilder.build(widget._movie.poster);
-    final image = Image.network(
-      posterURL,
-      width: queryData.size.width,
-      fit: BoxFit.fill,
-    );
+    final _image = widget._loader
+        .loadCardImage(widget._movie.poster, queryData.size.width);
 
-    image.image
+    _image.image
         .resolve(new ImageConfiguration())
         .addListener(ImageStreamListener((info, call) {
-      if (mounted) {
-        animationController.forward();
-        setState(() {
-          _movieCoverImage = image;
-        });
-      }
+      animationController.forward();
     }));
+    return _image;
   }
 
   @override
