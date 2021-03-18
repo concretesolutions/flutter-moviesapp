@@ -5,17 +5,21 @@ import 'package:moviesapp/moviesList/service/MoviesListService.dart';
 import 'package:moviesapp/network/APIResponse.dart';
 import 'package:moviesapp/network/Decodable.dart';
 import 'package:moviesapp/network/Result.dart';
+import 'package:moviesapp/storage/FavoriteStorage.dart';
+import 'package:moviesapp/storage/FavoriteStorageProtocol.dart';
 
 class MoviesListViewModel extends ChangeNotifier {
   Response responseController;
   MoviesListService _service;
   List<Movie> _movies = [];
+  FavoriteStorageProtocol _storage;
   int _page = 1;
   int _totalPages = 0;
   int _additionalListItems = 2;
 
-  MoviesListViewModel([this._service]) {
+  MoviesListViewModel([this._service, this._storage]) {
     _service = _service ?? MoviesListService();
+    _storage = _storage ?? FavoriteStorage();
     responseController = Response.none();
   }
 
@@ -77,12 +81,26 @@ class MoviesListViewModel extends ChangeNotifier {
     return _movies[index];
   }
 
+  bool isMovieFavorite(int index) {
+    final id = _movies[index].id;
+    return _storage.isFavoriteMovie(id);
+  }
+
   bool shouldFetchNewPage() {
     if (_page == _totalPages) {
       return false;
     } else {
       _page += 1;
       return true;
+    }
+  }
+
+  void handleFavoriteSelection(Movie movie) {
+    final id = movie.id;
+    if (_storage.isFavoriteMovie(id)) {
+      _storage.unfavoriteMovie(id);
+    } else {
+      _storage.favoriteMovie(movie);
     }
   }
 }

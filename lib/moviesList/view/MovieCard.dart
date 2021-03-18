@@ -6,8 +6,11 @@ import 'package:moviesapp/utils/ImageDownloader.dart';
 class MovieCard extends StatefulWidget {
   final Movie _movie;
   final ImageDownloader _loader;
+  final bool _isFavorite;
+  final Function(Movie) _favoriteSelection;
 
-  MovieCard(this._movie, this._loader);
+  MovieCard(
+      this._movie, this._loader, this._isFavorite, this._favoriteSelection);
 
   @override
   _MovieCardState createState() => _MovieCardState();
@@ -16,10 +19,12 @@ class MovieCard extends StatefulWidget {
 class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
   AnimationController animationController;
   Animation<double> animation;
+  bool isFavorited;
 
   @override
   void initState() {
     super.initState();
+    isFavorited = widget._isFavorite;
     animationController = AnimationController(
         duration: const Duration(milliseconds: 500), vsync: this);
     animation =
@@ -48,10 +53,19 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
     return FadeTransition(
       opacity: animation,
       child: Column(
-        children: [
-          _cardImageContainer(),
-          _cardMovieTitle(),
-        ],
+        children: [_cardImageContainer(), _titleFavoriteRow()],
+      ),
+    );
+  }
+
+  Widget _titleFavoriteRow() {
+    return Flexible(
+      fit: FlexFit.loose,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 8, right: 8),
+        child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [_cardMovieTitle(), _favoriteButton()]),
       ),
     );
   }
@@ -66,14 +80,28 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
   Widget _cardMovieTitle() {
     return Expanded(
         child: Container(
-          child: Center(
-            child: Text(widget._movie.title,
-              maxLines: 2,
-              style: TextStyle(color: CupertinoColors.systemYellow),
-              textAlign: TextAlign.center)
-              ),
-            )
-          );
+      child: Center(
+          child: Text(
+        widget._movie.title,
+        maxLines: 2,
+        style: TextStyle(color: CupertinoColors.systemYellow),
+        textAlign: TextAlign.center,
+      )),
+    ));
+  }
+
+  Widget _favoriteButton() {
+    return Center(
+        child: IconButton(
+      icon: Icon(CupertinoIcons.heart_fill,
+          color: isFavorited ? Colors.red : Colors.black54),
+      onPressed: () {
+        widget._favoriteSelection(widget._movie);
+        setState(() {
+          isFavorited = !isFavorited;
+        });
+      },
+    ));
   }
 
   Widget _cardImage() {
