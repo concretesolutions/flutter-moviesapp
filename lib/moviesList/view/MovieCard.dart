@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:moviesapp/moviesList/model/Movie.dart';
-import 'package:moviesapp/utils/ImageURLBuilder.dart';
+import 'package:moviesapp/utils/ImageDownloader.dart';
 
 class MovieCard extends StatefulWidget {
   final Movie _movie;
-  MovieCard(this._movie);
+  final ImageDownloader _loader;
+
+  MovieCard(this._movie, this._loader);
 
   @override
   _MovieCardState createState() => _MovieCardState();
@@ -14,7 +16,6 @@ class MovieCard extends StatefulWidget {
 class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
   AnimationController animationController;
   Animation<double> animation;
-  Image _movieCoverImage;
 
   @override
   void initState() {
@@ -35,6 +36,7 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
   }
 
   Widget _cardContentLoading() {
+<<<<<<< HEAD
     if (_movieCoverImage == null) {
       _cardImageDownload();
       return Center(
@@ -45,6 +47,14 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
         child: _cardContent(),
       );
     }
+=======
+    return Stack(
+      children: [
+        Center(child: CircularProgressIndicator()),
+        Center(child: _cardContent()),
+      ],
+    );
+>>>>>>> develop
   }
 
   Widget _cardContent() {
@@ -63,12 +73,13 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
     return Column(
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [_movieCoverImage]);
+        children: [_cardImage()]);
   }
 
   Widget _cardMovieTitle() {
     return Expanded(
         child: Container(
+<<<<<<< HEAD
       child: Center(
           child: Text(
         widget._movie.title,
@@ -77,29 +88,40 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
         textAlign: TextAlign.center,
       )),
     ));
+=======
+          child: Center(
+            child: Text(widget._movie.title,
+              maxLines: 2,
+              style: TextStyle(color: CupertinoColors.systemYellow),
+              textAlign: TextAlign.center)
+              ),
+            )
+          );
+>>>>>>> develop
   }
 
-  void _cardImageDownload() {
+  Widget _cardImage() {
     MediaQueryData queryData;
     queryData = MediaQuery.of(context);
 
-    final posterURL = ImageURLBuilder.build(widget._movie.poster);
-    final image = Image.network(
-      posterURL,
-      width: queryData.size.width,
-      fit: BoxFit.fill,
-    );
+    final _image = widget._loader
+        .loadCardImage(widget._movie.poster, queryData.size.width);
 
-    image.image
+    _image.image
         .resolve(new ImageConfiguration())
         .addListener(ImageStreamListener((info, call) {
+<<<<<<< HEAD
       if (mounted) {
         animationController.forward();
         setState(() {
           _movieCoverImage = image;
         });
       }
+=======
+      animationController.forward();
+>>>>>>> develop
     }));
+    return _image;
   }
 
   @override
