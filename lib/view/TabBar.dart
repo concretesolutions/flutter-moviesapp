@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:moviesapp/moviesList/viewModel/MoviesListViewModel.dart';
+import 'package:moviesapp/utils/ImageDownloader.dart';
 import 'package:provider/provider.dart';
 import '../moviesList/view/MoviesPage.dart';
 import '../favoritesList/view/FavoritesPage.dart';
@@ -17,7 +18,7 @@ class _TabBarState extends State<TabBar> {
   List<Widget> tabs = [
     ChangeNotifierProvider(
       create: (context) => MoviesListViewModel(),
-      child: MoviesPage(),
+      child: MoviesPage(ImageDownloader()),
     ),
     FavoritesPage(),
   ];

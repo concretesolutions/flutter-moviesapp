@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
@@ -8,8 +7,8 @@ import 'package:moviesapp/moviesList/viewModel/MoviesListViewModel.dart';
 import 'package:moviesapp/network/APIResponse.dart' as response;
 import 'package:moviesapp/view/ErrorPage.dart';
 import 'package:provider/provider.dart';
-
 import '../../stubs/MovieStubs.dart';
+import '../../utils/MockImageLoader.dart';
 import '../../utils/utils.dart';
 
 class MockMoviesListViewModel extends Mock implements MoviesListViewModel {}
@@ -21,7 +20,7 @@ void main() {
   setUp(() {
     viewModel = MockMoviesListViewModel();
     sut = ChangeNotifierProvider<MoviesListViewModel>(
-        create: (context) => viewModel, child: MoviesPage());
+        create: (context) => viewModel, child: MoviesPage(MockImageLoader()));
   });
 
   group("MoviesPage -", () {
@@ -49,8 +48,10 @@ void main() {
       bool didCallFetchNewPage = false;
       when(viewModel.responseController)
           .thenReturn(response.Response.completed("..."));
-      when(viewModel.moviesCount()).thenReturn(0);
-      when(viewModel.itemsCount()).thenReturn(2);
+      when(viewModel.moviesCount()).thenReturn(2);
+      when(viewModel.itemsCount()).thenReturn(4);
+      when(viewModel.movieForIndex(0)).thenReturn(MovieStub.stub());
+      when(viewModel.movieForIndex(1)).thenReturn(MovieStub.stub());
       when(viewModel.shouldFetchNewPage()).thenAnswer((realInvocation) {
         didCallFetchNewPage = true;
         return false;
@@ -58,9 +59,11 @@ void main() {
 
       await tester.pumpWidget(makeTestable(sut));
       final gridView = find.byType(GridView);
+      final cards = find.byType(MovieCard);
       final loadings = find.byType(CircularProgressIndicator);
 
       expect(gridView, findsOneWidget);
+      expect(cards, findsNWidgets(2));
       expect(loadings, findsNWidgets(2));
       expect(didCallFetchNewPage, true);
     });
