@@ -15,7 +15,9 @@ class FavoriteStorageMock implements FavoriteStorageProtocol {
   }
 
   @override
-  bool isFavoriteMovie(int id) {}
+  bool isFavoriteMovie(int id) {
+    return false;
+  }
 
   @override
   void unfavoriteMovie(int id) {}
