@@ -5,6 +5,15 @@ jobs:
   ci:
     name: CI Flutter
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        linter-bot:
+          - main
+          - coverage
+          - release
+          - benchmark
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -37,3 +46,8 @@ jobs:
         env:
           APIKEY: ${{ secrets.APIKEY }}
         run: flutter build apk --dart-define=APIKEY=$APIKEY
+        
+      - name: tool/bot.sh
+        env:
+          LINTER_BOT: ${{ matrix.linter-bot }}
+        run: ./tool/bot.sh
