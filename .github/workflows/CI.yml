@@ -21,7 +21,7 @@ jobs:
 
       - name: Dart Version
         run: dart --version
-      
+
       - name: Flutter version
         run: flutter --version
 
