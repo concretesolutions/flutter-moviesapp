@@ -52,6 +52,8 @@ void main() {
       when(viewModel.itemsCount()).thenReturn(4);
       when(viewModel.movieForIndex(0)).thenReturn(MovieStub.stub());
       when(viewModel.movieForIndex(1)).thenReturn(MovieStub.stub());
+      when(viewModel.isMovieFavorite(0)).thenReturn(true);
+      when(viewModel.isMovieFavorite(1)).thenReturn(false);
       when(viewModel.shouldFetchNewPage()).thenAnswer((realInvocation) {
         didCallFetchNewPage = true;
         return false;
