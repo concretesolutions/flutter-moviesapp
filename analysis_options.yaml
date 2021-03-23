@@ -1,17 +1,9 @@
 linter:
   rules:
-    - parameter_assignments
-    - unnecessary_statements
-    - always_put_control_body_on_new_line
-    - unnecessary_parenthesis
-    - unnecessary_this
-    - unnecessary_nullable_for_final_variable_declarations
-    - unnecessary_null_aware_assignments
-    - unnecessary_new
-    - unnecessary_lambdas
-    - unnecessary_final
-    - unnecessary_const
-    #- always_put_required_named_parameters_first
+    - always_require_non_null_named_parameters
+    #- always_put_control_body_on_new_line
+    #- always_specify_types
+    - always_put_required_named_parameters_first
     - avoid_redundant_argument_values
     - avoid_returning_null
     - avoid_returning_null_for_future
@@ -23,11 +15,20 @@ linter:
     - directives_ordering
     - empty_constructor_bodies
     - join_return_with_assignment
+    - parameter_assignments
     - prefer_const_constructors_in_immutables
-    - prefer_expression_function_bodies
     - prefer_relative_imports
     - sort_pub_dependencies
     - unnecessary_null_checks
+    - unnecessary_statements
+    - unnecessary_parenthesis
+    - unnecessary_this
+    - unnecessary_nullable_for_final_variable_declarations
+    - unnecessary_null_aware_assignments
+    - unnecessary_new
+    - unnecessary_lambdas
+    - unnecessary_final
+    - unnecessary_const
     - use_late_for_private_fields_and_variables
     - use_setters_to_change_properties
     - use_string_buffers
@@ -35,7 +36,13 @@ linter:
     - void_checks
 
 analyzer:
+  errors:
+    missing_return: warning
+    todo: ignore
+
   exclude:
     - .history/**
     - test/_data/**
     - test/mock_packages/**
+    - bin/cache/**
+
