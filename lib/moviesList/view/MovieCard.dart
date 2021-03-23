@@ -9,8 +9,7 @@ class MovieCard extends StatefulWidget {
   final bool _isFavorite;
   final Function(Movie) _favoriteSelection;
 
-  MovieCard(
-      this._movie, this._loader, this._isFavorite, this._favoriteSelection);
+  MovieCard(this._movie, this._loader, this._isFavorite, this._favoriteSelection);
 
   @override
   _MovieCardState createState() => _MovieCardState();
@@ -80,28 +79,31 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
   Widget _cardMovieTitle() {
     return Expanded(
         child: Container(
-      child: Center(
-          child: Text(
-        widget._movie.title,
-        maxLines: 2,
-        style: TextStyle(color: CupertinoColors.systemYellow),
-        textAlign: TextAlign.center,
-      )),
-    ));
+          child: Center(
+            child: Text(
+              widget._movie.title,
+              maxLines: 2,
+              style: TextStyle(color: CupertinoColors.systemYellow),
+              textAlign: TextAlign.center,
+              )
+            ),
+          )
+        );
   }
 
   Widget _favoriteButton() {
     return Center(
         child: IconButton(
-      icon: Icon(CupertinoIcons.heart_fill,
+          icon: Icon(CupertinoIcons.heart_fill,
           color: isFavorited ? Colors.red : Colors.black54),
-      onPressed: () {
-        widget._favoriteSelection(widget._movie);
-        setState(() {
-          isFavorited = !isFavorited;
-        });
-      },
-    ));
+          onPressed: () {
+            widget._favoriteSelection(widget._movie);
+            setState(() {
+              isFavorited = !isFavorited;
+            });
+          },
+        )
+      );
   }
 
   Widget _cardImage() {
