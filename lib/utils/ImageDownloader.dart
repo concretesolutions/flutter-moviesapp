@@ -6,4 +6,9 @@ class ImageDownloader {
     final posterURL = ImageURLBuilder.build(path);
     return Image.network(posterURL, width: width, fit: BoxFit.fill);
   }
+
+  Image loadCardFavoriteImage(String path) {
+    final posterURL = ImageURLBuilder.build(path);
+    return Image.network(posterURL, height: 100);
+  }
 }
