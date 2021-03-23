@@ -1,10 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 import 'package:moviesapp/moviesList/model/Movie.dart';
 import 'package:moviesapp/moviesList/service/MoviesListService.dart';
 import 'package:moviesapp/moviesList/viewModel/MoviesListViewModel.dart';
 import 'package:moviesapp/network/APIResponse.dart';
+import 'package:moviesapp/storage/FavoriteStorageProtocol.dart';
 
 import '../../mocks/APIClientMock.dart';
+import '../../mocks/MockFavoritesStorage.dart';
 import '../../mocks/TestObject.dart';
 import '../../stubs/MovieStubs.dart';
 
@@ -13,12 +16,15 @@ void main() {
   APIClientMock apiMock;
   List<Response> states;
   Movies movies;
+  FavoriteStorageProtocol storage;
+  Movie movie;
 
   setUp(() {
     apiMock = APIClientMock();
-    sut = MoviesListViewModel(MoviesListService(apiMock));
+    storage = MockFavoritesStorage();
+    sut = MoviesListViewModel(MoviesListService(apiMock), storage);
     states = [];
-    Movie movie = MovieStub.stub(10, "Bar");
+    movie = MovieStub.stub(10, "Bar");
     movies = MoviesStub.stub([movie, movie, movie], 1, 5);
     sut.addListener(() {
       states.add(sut.responseController);
@@ -103,6 +109,54 @@ void main() {
 
           expect(firstPaginationTryAllowed, true);
           expect(secondPaginationTryAllowed, false);
+        });
+      });
+
+      group("handleFavoritesSeletion", () {
+        test("favoriteMovie", () {
+          bool didCallFavoriteMovie = false;
+
+          when(storage.isFavoriteMovie(movie.id)).thenReturn(false);
+          when(storage.favoriteMovie(movie)).thenAnswer((realInvocation) {
+            didCallFavoriteMovie = true;
+          });
+
+          sut.handleFavoriteSelection(movie);
+
+          expect(didCallFavoriteMovie, true);
+        });
+
+        test("favoriteMovie", () {
+          bool didCallUnfavoriteMovie = false;
+
+          when(storage.isFavoriteMovie(movie.id)).thenReturn(true);
+          when(storage.unfavoriteMovie(movie.id)).thenAnswer((realInvocation) {
+            didCallUnfavoriteMovie = true;
+          });
+
+          sut.handleFavoriteSelection(movie);
+
+          expect(didCallUnfavoriteMovie, true);
+        });
+      });
+
+      group("favoriteForIndex", () {
+        test("", () async {
+          Movie lastMovie = MovieStub.stub(15, "House");
+          movies = MoviesStub.stub([movie, movie, movie, lastMovie], 1, 5);
+
+          apiMock.decodableToReturn = movies;
+
+          await sut.fetchMovies();
+
+          when(storage.isFavoriteMovie(movie.id)).thenReturn(false);
+          when(storage.isFavoriteMovie(lastMovie.id)).thenReturn(true);
+
+          bool isFirstMovieFavorite = sut.isMovieFavorite(0);
+          bool isLastMovieFavorite = sut.isMovieFavorite(3);
+
+          expect(isFirstMovieFavorite, false);
+          expect(isLastMovieFavorite, true);
         });
       });
     });

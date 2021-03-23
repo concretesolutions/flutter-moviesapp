@@ -45,14 +45,24 @@ void main() {
       });
     });
 
-    test("favoriteMovie", () {
-      when(storage.getItem("favorites"))
-          .thenReturn(favorites.toJSONEncodable());
+    group("favoriteMovie", () {
+      test("firstMovie", () {
+        when(storage.getItem("favorites")).thenReturn(null);
 
-      sut.favoriteMovie(movie2);
-      final contentItem = sut.isFavoriteMovie(12);
+        sut.favoriteMovie(movie2);
 
-      expect(contentItem, true);
+        expect(storage.didCallSetItem, true);
+      });
+
+      test("others", () {
+        when(storage.getItem("favorites"))
+            .thenReturn(favorites.toJSONEncodable());
+
+        sut.favoriteMovie(movie2);
+        final contentItem = sut.isFavoriteMovie(12);
+
+        expect(contentItem, true);
+      });
     });
 
     test("unFavoriteMovie", () {

@@ -16,6 +16,7 @@ class FavoriteStorage implements FavoriteStorageProtocol {
 
   List<Movie> _read() {
     final List favorites = storage.getItem('favorites');
+    if (favorites == null) return [];
     List<Movie> listMovies =
         favorites.map((favorite) => Movie.fromJSON(favorite)).toList();
     return listMovies;
