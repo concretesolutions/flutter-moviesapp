@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:moviesapp/moviesList/viewModel/MoviesListViewModel.dart';
+import 'package:moviesapp/storage/FavoriteStorage.dart';
 import 'package:moviesapp/utils/ImageDownloader.dart';
 import 'package:provider/provider.dart';
 import '../moviesList/view/MoviesPage.dart';
@@ -15,13 +16,9 @@ class TabBar extends StatefulWidget {
 }
 
 class _TabBarState extends State<TabBar> {
-  List<Widget> tabs = [
-    ChangeNotifierProvider(
+  final _moviesPage = ChangeNotifierProvider(
       create: (context) => MoviesListViewModel(),
-      child: MoviesPage(ImageDownloader()),
-    ),
-    FavoritesPage(),
-  ];
+      child: MoviesPage(ImageDownloader()));
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +32,14 @@ class _TabBarState extends State<TabBar> {
         ],
       ),
       tabBuilder: (context, i) {
-        return tabs[i];
+        switch (i) {
+          case 0:
+            return _moviesPage;
+          case 1:
+            return FavoritesPage(ImageDownloader(), FavoriteStorage());
+          default:
+            return Text("No widget provided for that tab");
+        }
       },
     );
   }
