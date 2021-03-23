@@ -31,7 +31,16 @@ jobs:
       - name: Test
         env:
           APIKEY: ${{ secrets.APIKEY }}
-        run: flutter test --dart-define=APIKEY=$APIKEY
+        run: flutter test --dart-define=APIKEY=$APIKEY --coverage
+
+      - name: Generate coverage report XML
+        run: ./scripts/lcovToXML.py coverage/lcov.info -b lib -o coverage/coverage.xml
+
+      - name: Post coverage report
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage/coverage.xml
 
       - name: Build
         env:
