@@ -33,6 +33,7 @@ class _MoviesPageState extends State<MoviesPage> {
   Widget build(BuildContext context) {
     _viewModel = Provider.of<MoviesListViewModel>(context);
     return CupertinoPageScaffold(
+      backgroundColor: Colors.white,
       navigationBar: CupertinoNavigationBar(
         middle: const Text("Movies"),
       ),

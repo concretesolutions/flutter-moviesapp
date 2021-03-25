@@ -19,6 +19,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
   @override
   Widget build(BuildContext context) {
     return CupertinoPageScaffold(
+      backgroundColor: Colors.white,
       navigationBar: CupertinoNavigationBar(
           backgroundColor: CupertinoColors.systemYellow,
           middle: const Text("Favorites")),
