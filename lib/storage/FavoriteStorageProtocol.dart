@@ -1,4 +1,4 @@
-import 'package:moviesapp/moviesList/model/Movie.dart';
+import '../moviesList/model/Movie.dart';
 
 abstract class FavoriteStorageProtocol {
   void favoriteMovie(Movie movie);

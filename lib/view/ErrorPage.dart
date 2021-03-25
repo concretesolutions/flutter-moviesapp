@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class ErrorPage extends StatelessWidget {
   final VoidCallback callback;
 
-  ErrorPage(this.callback);
+  const ErrorPage(this.callback);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class ErrorPage extends StatelessWidget {
         ),
         SizedBox(height: 40),
         CupertinoButton(
-            borderRadius: new BorderRadius.circular(30.0),
+            borderRadius: BorderRadius.circular(30.0),
             color: Colors.black,
             child: Text("Try again", style: TextStyle(fontSize: 16, color: Colors.amber)),
             onPressed: callback),
