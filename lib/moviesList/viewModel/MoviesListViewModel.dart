@@ -1,12 +1,13 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:moviesapp/moviesList/model/Movie.dart';
-import 'package:moviesapp/moviesList/service/MoviesListService.dart';
-import 'package:moviesapp/network/APIResponse.dart';
-import 'package:moviesapp/network/Decodable.dart';
-import 'package:moviesapp/network/Result.dart';
-import 'package:moviesapp/storage/FavoriteStorage.dart';
-import 'package:moviesapp/storage/FavoriteStorageProtocol.dart';
+import 'package:flutter/material.dart';
+
+import '../../network/APIResponse.dart';
+import '../../network/Decodable.dart';
+import '../../network/Result.dart';
+import '../../storage/FavoriteStorage.dart';
+import '../../storage/FavoriteStorageProtocol.dart';
+import '../model/Movie.dart';
+import '../service/MoviesListService.dart';
 
 class MoviesListViewModel extends ChangeNotifier {
   Response responseController;
@@ -30,7 +31,7 @@ class MoviesListViewModel extends ChangeNotifier {
 
   Future<void> fetchMovies() async {
     _handleLoading();
-    final response = await _service.fetchMovies(_page);
+    Result<Decodable> response = await _service.fetchMovies(_page);
     switch (response.result) {
       case ResultType.success:
         _handleSuccess(response.value);
@@ -49,8 +50,8 @@ class MoviesListViewModel extends ChangeNotifier {
   void _handleSuccess(Decodable value) {
     if (value is Movies) {
       Movies movies = value;
-      this._movies.addAll(movies.list);
-      this._totalPages = movies.totalPages;
+      _movies.addAll(movies.list);
+      _totalPages = movies.totalPages;
       setResponse(Response.completed("Success"));
     } else {
       _handleError("Unable to decode movies model");
@@ -82,7 +83,7 @@ class MoviesListViewModel extends ChangeNotifier {
   }
 
   bool isMovieFavorite(int index) {
-    final id = _movies[index].id;
+    int id = _movies[index].id;
     return _storage.isFavoriteMovie(id);
   }
 
@@ -96,7 +97,7 @@ class MoviesListViewModel extends ChangeNotifier {
   }
 
   void handleFavoriteSelection(Movie movie) {
-    final id = movie.id;
+    int id = movie.id;
     if (_storage.isFavoriteMovie(id)) {
       _storage.unfavoriteMovie(id);
     } else {

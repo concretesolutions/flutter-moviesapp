@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:moviesapp/moviesList/model/Movie.dart';
-import 'package:moviesapp/utils/ImageDownloader.dart';
+import '../../moviesList/model/Movie.dart';
+import '../../utils/ImageDownloader.dart';
 
 class FavoriteCard extends StatefulWidget {
   final Movie _movie;
   final ImageDownloader _downloader;
 
-  FavoriteCard(this._movie, this._downloader);
+  const FavoriteCard(this._movie, this._downloader);
 
   @override
   _FavoriteCardState createState() => _FavoriteCardState();
@@ -27,7 +27,7 @@ class _FavoriteCardState extends State<FavoriteCard> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _image(),
-          Flexible(fit: FlexFit.loose, child: _contentColumn())
+          Flexible(child: _contentColumn())
         ]);
   }
 
@@ -35,7 +35,6 @@ class _FavoriteCardState extends State<FavoriteCard> {
     return Container(
         padding: const EdgeInsets.all(8),
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
             children: [_titleReleaseRow(), SizedBox(height: 8), _overview()]));
   }
 

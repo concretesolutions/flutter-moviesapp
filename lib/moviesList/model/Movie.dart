@@ -1,4 +1,4 @@
-import 'package:moviesapp/network/Decodable.dart';
+import '../../network/Decodable.dart';
 
 class Movies implements Decodable {
   List<Movie> list;
@@ -10,7 +10,7 @@ class Movies implements Decodable {
 
   @override
   Decodable fromJson(Map<String, dynamic> json) {
-    final jsonList = json["results"] as List;
+    List jsonList = json["results"] as List;
     list = jsonList.map((jsonMovie) => Movie.fromJSON(jsonMovie)).toList();
     page = json["page"];
     totalPages = json["total_pages"];
@@ -37,7 +37,7 @@ class Movie {
   }
 
   toJSONEncodable() {
-    Map<String, dynamic> json = new Map();
+    Map<String, dynamic> json = Map();
 
     json["id"] = id;
     json["title"] = title;

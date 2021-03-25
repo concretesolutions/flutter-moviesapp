@@ -1,5 +1,5 @@
-import 'package:moviesapp/network/APIRequest.dart';
-import 'package:moviesapp/network/APIRequestMethod.dart';
+import '../../network/APIRequest.dart';
+import '../../network/APIRequestMethod.dart';
 
 class MoviesListRequest extends APIRequest {
   int _page;

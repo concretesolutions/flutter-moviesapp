@@ -1,4 +1,4 @@
-import 'package:moviesapp/network/APIRequestMethod.dart';
+import 'APIRequestMethod.dart';
 
 abstract class APIRequest {
   String get path;

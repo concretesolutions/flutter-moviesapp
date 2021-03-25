@@ -30,7 +30,6 @@ jobs:
         run: flutter pub get
 
       - name: Lint
-        continue-on-error: true
         run: flutter analyze
 
       - name: Test

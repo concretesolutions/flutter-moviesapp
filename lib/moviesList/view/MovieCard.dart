@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:moviesapp/moviesList/model/Movie.dart';
-import 'package:moviesapp/utils/ImageDownloader.dart';
+
+import '../../utils/ImageDownloader.dart';
+import '../model/Movie.dart';
 
 class MovieCard extends StatefulWidget {
   final Movie _movie;
@@ -9,7 +10,7 @@ class MovieCard extends StatefulWidget {
   final bool _isFavorite;
   final Function(Movie) _favoriteSelection;
 
-  MovieCard(this._movie, this._loader, this._isFavorite, this._favoriteSelection);
+  const MovieCard(this._movie, this._loader, this._isFavorite, this._favoriteSelection);
 
   @override
   _MovieCardState createState() => _MovieCardState();
@@ -34,7 +35,7 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Card(
       color: Colors.deepPurple,
-      child: (_cardContentLoading()),
+      child: _cardContentLoading(),
       clipBehavior: Clip.antiAliasWithSaveLayer,
     );
   }
@@ -59,11 +60,9 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
 
   Widget _titleFavoriteRow() {
     return Flexible(
-      fit: FlexFit.loose,
       child: Padding(
         padding: const EdgeInsets.only(left: 8, right: 8),
         child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
             children: [_cardMovieTitle(), _favoriteButton()]),
       ),
     );
@@ -71,22 +70,19 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
 
   Widget _cardImageContainer() {
     return Column(
-        mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [_cardImage()]);
   }
 
   Widget _cardMovieTitle() {
     return Expanded(
-        child: Container(
-          child: Center(
-            child: Text(
-              widget._movie.title,
-              maxLines: 2,
-              style: TextStyle(color: CupertinoColors.systemYellow),
-              textAlign: TextAlign.center,
-              )
-            ),
+        child: Center(
+          child: Text(
+            widget._movie.title,
+            maxLines: 2,
+            style: TextStyle(color: CupertinoColors.systemYellow),
+            textAlign: TextAlign.center,
+            )
           )
         );
   }
@@ -110,11 +106,11 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
     MediaQueryData queryData;
     queryData = MediaQuery.of(context);
 
-    final _image = widget._loader
+    Image _image = widget._loader
         .loadCardImage(widget._movie.poster, queryData.size.width);
 
     _image.image
-        .resolve(new ImageConfiguration())
+        .resolve(ImageConfiguration())
         .addListener(ImageStreamListener((info, call) {
       animationController.forward();
     }));

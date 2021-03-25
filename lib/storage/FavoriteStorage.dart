@@ -1,6 +1,6 @@
 import 'package:localstorage/localstorage.dart';
-import 'package:moviesapp/moviesList/model/Movie.dart';
-import 'package:moviesapp/storage/FavoriteStorageProtocol.dart';
+import '../moviesList/model/Movie.dart';
+import 'FavoriteStorageProtocol.dart';
 
 class FavoriteStorage implements FavoriteStorageProtocol {
   LocalStorage storage;
@@ -15,7 +15,7 @@ class FavoriteStorage implements FavoriteStorageProtocol {
   }
 
   List<Movie> _read() {
-    final List favorites = storage.getItem('favorites');
+    List favorites = storage.getItem('favorites');
     if (favorites == null) return [];
     List<Movie> listMovies =
         favorites.map((favorite) => Movie.fromJSON(favorite)).toList();
@@ -40,13 +40,13 @@ class FavoriteStorage implements FavoriteStorageProtocol {
 
   @override
   bool isFavoriteMovie(int id) {
-    final favorites = _read();
+    List<Movie> favorites = _read();
     return favorites.any((movie) => movie.id == id);
   }
 
   @override
   void unfavoriteMovie(int id) {
-    final favorites = _read();
+    List<Movie> favorites = _read();
     favorites.removeWhere((item) => item.id == id);
     _save(favorites);
   }

@@ -1,11 +1,13 @@
 import 'dart:async';
+
 import 'package:http/http.dart' as http;
-import 'package:moviesapp/config/Config.dart';
-import 'package:moviesapp/network/APIRequest.dart';
-import 'package:moviesapp/network/APIRequestMethod.dart';
-import 'package:moviesapp/network/Decodable.dart';
-import 'package:moviesapp/network/Result.dart';
+
+import '../config/Config.dart';
 import 'APIError.dart';
+import 'APIRequest.dart';
+import 'APIRequestMethod.dart';
+import 'Decodable.dart';
+import 'Result.dart';
 
 class APIClient {
   String _baseURL;
@@ -23,7 +25,7 @@ class APIClient {
     _parameters["api_key"] = _apiKey;
     Uri _url = Uri.https(_baseURL, "/3/" + request.path, _parameters);
     try {
-      final data = await _request(_url, request.method);
+      dynamic data = await _request(_url, request.method);
       return Result.success(data);
     } on APIError catch (error) {
       return Result.error(error);
@@ -37,8 +39,8 @@ class APIClient {
     Uri _url = Uri.https(_baseURL, "/3/" + request.path, _parameters);
 
     try {
-      final data = await _request(_url, request.method);
-      final decodable = Decodable(type, data);
+      dynamic data = await _request(_url, request.method);
+      Decodable decodable = Decodable(type, data);
       return Result.success(decodable);
     } on APIError catch (error) {
       return Result.error(error);
