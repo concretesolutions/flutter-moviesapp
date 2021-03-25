@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:moviesapp/movieDetail/view/movieDetail.dart';
+import 'package:moviesapp/movieDetail/viewModel/MovieDetailViewModel.dart';
+import 'package:moviesapp/moviesList/model/Movie.dart';
 import 'package:moviesapp/moviesList/view/MovieCard.dart';
 import 'package:moviesapp/moviesList/viewModel/MoviesListViewModel.dart';
 import 'package:moviesapp/network/APIResponse.dart';
@@ -92,9 +95,13 @@ class _MoviesPageState extends State<MoviesPage> {
   Widget _card(int index) {
     final movie = _viewModel.movieForIndex(index);
     final isFavorite = _viewModel.isMovieFavorite(index);
-    return MovieCard(movie, widget._loader, isFavorite, (movie) {
-      _viewModel.handleFavoriteSelection(movie);
-    });
+    return GestureDetector(
+        onTap: () {
+          _selectedMovie(movie, isFavorite);
+        },
+        child: MovieCard(movie, widget._loader, isFavorite, (movie) {
+          _viewModel.handleFavoriteSelection(movie);
+        }));
   }
 
   Widget _loading() {
@@ -111,5 +118,14 @@ class _MoviesPageState extends State<MoviesPage> {
     return ErrorPage(() {
       _fetchMovies();
     });
+  }
+
+  void _selectedMovie(Movie movie, bool isFavorited) {
+    final movieDetailViewModel = MovieDetailViewModel(movie, isFavorited);
+    Navigator.push(
+        context,
+        CupertinoPageRoute(
+            builder: (BuildContext context) =>
+                MovieDetail(movieDetailViewModel)));
   }
 }
