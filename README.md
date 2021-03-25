@@ -1,5 +1,7 @@
 # Flutter Movies App
-[![style: lint](https://img.shields.io/badge/style-lint-4BC0F5.svg)](https://pub.dev/packages/lint) [![codecov](https://codecov.io/gh/concretesolutions/flutter-moviesapp/branch/main/graph/badge.svg?token=KDMRUVBEW6)](https://codecov.io/gh/concretesolutions/flutter-moviesapp) [![Run CI](https://github.com/concretesolutions/flutter-moviesapp/actions/workflows/CI.yml/badge.svg)](https://github.com/concretesolutions/flutter-moviesapp/actions/workflows/CI.yml)
+[![style: lint](https://img.shields.io/badge/style-lint-4BC0F5.svg)](https://pub.dev/packages/lint) 
+[![codecov](https://codecov.io/gh/concretesolutions/flutter-moviesapp/branch/main/graph/badge.svg?token=KDMRUVBEW6)](https://codecov.io/gh/concretesolutions/flutter-moviesapp) 
+[![Run CI](https://github.com/concretesolutions/flutter-moviesapp/actions/workflows/CI.yml/badge.svg)](https://github.com/concretesolutions/flutter-moviesapp/actions/workflows/CI.yml)
 
 ![Gif](readmeResources/LogoConcrete-animado.gif)
 
@@ -13,6 +15,7 @@ Alguns tópicos que foram validados com relação ao Flutter foram:
 * **CI:** A criação de uma CI com o Github Actions foi simples e rápida.
 * **Arquitetura:** A arquitetura utilizada foi o MVVM e se provou ser uma arquitetura válida, assim como ela costuma ser para outras tecnologias mobile.
 * **Testes:** A criação de testes foi simples devido a grande quantidade de códigos prontos que auxiliam na escrita. Entretando, o log de testes que falham é ruim e de díficil entendimento.
+* **Métricas:** Para avaliar a qualidade do produto desenvolvido foi possível gerar relatórios de cobertura e validações de lint.
 
 ## Produto Desenvolvido
 O produto desenvolvido foi o aplicativo Movies.
