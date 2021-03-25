@@ -97,7 +97,7 @@ class _MoviesPageState extends State<MoviesPage> {
     final isFavorite = _viewModel.isMovieFavorite(index);
     return GestureDetector(
         onTap: () {
-          _selectedMovie(movie, isFavorite);
+          _selectedMovie(movie, _viewModel.isMovieFavorite(index));
         },
         child: MovieCard(movie, widget._loader, isFavorite, (movie) {
           _viewModel.handleFavoriteSelection(movie);

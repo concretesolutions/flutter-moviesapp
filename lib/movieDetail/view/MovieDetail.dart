@@ -29,28 +29,19 @@ class _MovieDetailState extends State<MovieDetail> {
   }
 
   Widget _body() {
-    return Container(
-        padding: EdgeInsets.all(16),
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height * 0.9,
-        child: _detailsContent());
+    return Container(padding: EdgeInsets.all(16), child: _detailsContent());
   }
 
   Widget _detailsContent() {
-    return Center(
-        child: Column(
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _imageView(),
-        SizedBox(height: 16),
-        Flexible(flex: 2, child: _titleFavoriteRow()),
-        _space(),
-        _releaseDate(),
-        SizedBox(height: 16),
-        _overview()
-      ],
-    ));
+    return ListView(children: [
+      _imageView(),
+      SizedBox(height: 16),
+      _titleFavoriteRow(),
+      _space(),
+      _releaseDate(),
+      SizedBox(height: 16),
+      _overview()
+    ]);
   }
 
   Widget _space() {
@@ -74,35 +65,36 @@ class _MovieDetailState extends State<MovieDetail> {
   }
 
   Widget _titleFavoriteRow() {
-    return Flexible(
-        child: Row(
+    return Row(
       children: [_cardMovieTitle(), _favoriteButton()],
-    ));
+    );
   }
 
   Widget _cardMovieTitle() {
-    return Text(widget._viewModel.movie.title,
-        maxLines: 2, textAlign: TextAlign.left, style: TextStyle(fontSize: 22));
+    return Flexible(
+        fit: FlexFit.tight,
+        child: Text(widget._viewModel.movie.title,
+            maxLines: 2,
+            textAlign: TextAlign.left,
+            style: TextStyle(fontSize: 18)));
   }
 
   Widget _favoriteButton() {
     return Flexible(
-        flex: 2,
-        child: Container(
-            height: 30,
+        fit: FlexFit.loose,
+        child: Card(
             child: IconButton(
-              icon: Icon(CupertinoIcons.heart_fill,
-                  color: isFavorited ? Colors.red : Colors.black54),
-              onPressed: () {
-                widget._viewModel.handleFavoriteSelection();
-                setState(
-                  () {
-                    isFavorited = !isFavorited;
-                  },
-                );
+          icon: Icon(CupertinoIcons.heart_fill,
+              color: isFavorited ? Colors.red : Colors.black54),
+          onPressed: () {
+            widget._viewModel.handleFavoriteSelection();
+            setState(
+              () {
+                isFavorited = !isFavorited;
               },
-            ),
-            alignment: Alignment.centerRight));
+            );
+          },
+        )));
   }
 
   Widget _releaseDate() {
