@@ -1,0 +1,54 @@
+name: Run CI
+on: pull_request
+
+jobs:
+  ci:
+    name: CI Flutter
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Setup Java version 12.x
+        uses: actions/setup-java@v1
+        with:
+          java-version: '12.x'
+
+      - name: Setup Flutter version 2.0.0
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '2.0.0'
+
+      - name: Dart Version
+        run: dart --version
+
+      - name: Flutter version
+        run: flutter --version
+
+      - name: Pub get
+        run: flutter pub get
+
+      - name: Lint
+        run: flutter analyze
+
+      - name: Test
+        env:
+          APIKEY: ${{ secrets.APIKEY }}
+        run: flutter test --dart-define=APIKEY=$APIKEY --coverage
+
+      - name: Generate coverage report XML
+        run: ./scripts/lcovToXML.py coverage/lcov.info -b lib -o coverage/coverage.xml
+
+      - name: Post coverage report
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./coverage/coverage.xml
+
+      - name: Build
+        env:
+          APIKEY: ${{ secrets.APIKEY }}
+        run: flutter build apk --dart-define=APIKEY=$APIKEY
+        
+

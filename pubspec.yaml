@@ -1,0 +1,32 @@
+name: moviesapp
+description: A new Flutter project.
+
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  cupertino_icons: ^1.0.2
+  flutter:
+    sdk: flutter
+  flutter_cupertino_localizations: 1.0.1
+  flutter_localizations:
+    sdk: flutter
+  flutter_slidable:
+  http: ^0.13.0
+  intl: ^0.17.0
+  localstorage: ^3.0.6
+  provider: ^4.3.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  lint: ^1.0.0
+  mockito: ^5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
