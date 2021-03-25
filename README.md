@@ -38,8 +38,8 @@ O aplicativo consiste em Listar filmes da API do [TheMovieDB](https://www.themov
   </tr>
  </table>
 
-## Executando o projetos
-Um pré requisito para executar o projeto é possui o Flutter instalado corretamente. É possível validar a instalação pelo seguinte comando.
+## Executando o projeto
+Um pré requisito para executar o projeto é possuir o Flutter instalado corretamente. É possível validar a instalação pelo seguinte comando.
 
 ```
 $ flutter doctor
@@ -58,7 +58,7 @@ Com o projeto aberto no VSCode é possível adicionar uma launch configuration a
 
 ![img](readmeResources/VSCodeConfig.png)
 
-Após criar a configuração, substitua seu conteúdo pelo seguinte snippet, alterando apenas o valor da APIKey para que foi gerada.
+Após criar a configuração, substitua seu conteúdo pelo seguinte snippet, alterando apenas o valor da APIKey para a que foi gerada.
 
 ```json
 {
