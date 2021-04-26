@@ -48,7 +48,6 @@ jobs:
 
       - name: Load Simulator
         run: |
-          open -a Simulator.app
           xcrun simctl list
 
       # - name: UI Test
