@@ -47,7 +47,9 @@ jobs:
           file: ./coverage/coverage.xml
 
       - name: Load Simulator
-        run: xcrun simctl list
+        run: |
+        open -a Simulator.app
+        xcrun simctl list
 
       # - name: UI Test
       #   env:
