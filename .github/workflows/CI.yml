@@ -49,14 +49,15 @@ jobs:
       - name: Load iOS Simulator
         run: |
           xcrun simctl boot F2707416-A4C6-4BCC-985B-8B3697376592
+          avdmanager list
 
-      - name: Load Android Simulator
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 30
-          target: google_apis
-          profile: Pixel 4
-          script: ./gradlew connectedCheck
+      # - name: Load Android Simulator
+      #   uses: reactivecircus/android-emulator-runner@v2
+      #   with:
+      #     api-level: 30
+      #     target: google_apis
+      #     profile: Pixel 4
+      #     script: ./gradlew connectedCheck
 
       - name: UI Test
         env:
