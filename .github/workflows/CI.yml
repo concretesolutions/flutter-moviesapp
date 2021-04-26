@@ -20,6 +20,9 @@ jobs:
         with:
           flutter-version: '2.0.0'
 
+      - name: Setup Android SDK
+        uses: malinskiy/action-android/install-sdk@release/0.1.1
+
       - name: Dart Version
         run: dart --version
 
@@ -49,15 +52,16 @@ jobs:
       - name: Load iOS Simulator
         run: |
           xcrun simctl boot F2707416-A4C6-4BCC-985B-8B3697376592
-      
-      - name: Install Android SDK
-        uses: malinskiy/action-android/install-sdk@release/0.1.1
-        with:
-          cmd: ./gradlew connectedCheck
-          api: 30
-          tag: default
-          abi: x86
 
+      - name: Load Android Simulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          target: google_apis
+          arch: x86_64
+          profile: Nexus 6
+          script: ./gradlew connectedCheck
+          
       - name: UI Test
         env:
           APIKEY: ${{ secrets.APIKEY }}
