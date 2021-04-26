@@ -47,12 +47,12 @@ jobs:
           file: ./coverage/coverage.xml
 
       - name: Load Simulator
-        run: open -a simulator
+        run: xcrun simctl list
 
-      - name: UI Test
-        env:
-          APIKEY: ${{ secrets.APIKEY }}
-        run: flutter driver --target=test_driver/favoriteFlow/favoriteFlow.dart --dart-define=APIKEY=$APIKEY
+      # - name: UI Test
+      #   env:
+      #     APIKEY: ${{ secrets.APIKEY }}
+      #   run: flutter driver --target=test_driver/favoriteFlow/favoriteFlow.dart --dart-define=APIKEY=$APIKEY
 
       - name: Build
         env:
