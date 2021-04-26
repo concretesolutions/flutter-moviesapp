@@ -49,12 +49,12 @@ jobs:
       - name: Load Simulator
         run: |
           xcrun simctl boot F2707416-A4C6-4BCC-985B-8B3697376592
-          xcrun simctl list
+          flutter devices
 
-      # - name: UI Test
-      #   env:
-      #     APIKEY: ${{ secrets.APIKEY }}
-      #   run: flutter driver --target=test_driver/favoriteFlow/favoriteFlow.dart --dart-define=APIKEY=$APIKEY
+      - name: UI Test
+        env:
+          APIKEY: ${{ secrets.APIKEY }}
+        run: flutter driver --target=test_driver/favoriteFlow/favoriteFlow.dart --dart-define=APIKEY=$APIKEY
 
       - name: Build
         env:
