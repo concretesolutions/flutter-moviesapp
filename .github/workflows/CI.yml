@@ -48,8 +48,8 @@ jobs:
 
       - name: Load Simulator
         run: |
-        open -a Simulator.app
-        xcrun simctl list
+          open -a Simulator.app
+          xcrun simctl list
 
       # - name: UI Test
       #   env:
