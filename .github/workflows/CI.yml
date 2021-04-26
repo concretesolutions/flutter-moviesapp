@@ -51,7 +51,7 @@ jobs:
           xcrun simctl boot F2707416-A4C6-4BCC-985B-8B3697376592
       
       - name: Install Android SDK
-        uses: malinskiy/action-android/install-sdk@release/0.0.3
+        uses: malinskiy/action-android/install-sdk@release/0.1.1
         with:
           cmd: ./gradlew connectedCheck
           api: 30
