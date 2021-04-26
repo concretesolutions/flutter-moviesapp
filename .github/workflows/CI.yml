@@ -4,7 +4,7 @@ on: pull_request
 jobs:
   ci:
     name: CI Flutter
-    runs-on: ubuntu-latest
+    runs-on: macOS-latest
 
     steps:
       - name: Checkout repository
@@ -45,6 +45,14 @@ jobs:
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./coverage/coverage.xml
+
+      - name: Load Simulator
+        run: open -a simulator
+
+      - name: UI Test
+        env:
+          APIKEY: ${{ secrets.APIKEY }}
+        run: flutter driver --target=test_driver/favoriteFlow/favoriteFlow.dart --dart-define=APIKEY=$APIKEY
 
       - name: Build
         env:
