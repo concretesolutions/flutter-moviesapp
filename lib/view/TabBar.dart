@@ -6,6 +6,7 @@ import '../moviesList/view/MoviesPage.dart';
 import '../moviesList/viewModel/MoviesListViewModel.dart';
 import '../storage/FavoriteStorage.dart';
 import '../utils/ImageDownloader.dart';
+import '../utils/widgetsKeys.dart';
 
 class TabBar extends StatefulWidget {
   const TabBar({Key key, this.title}) : super(key: key);
@@ -27,9 +28,9 @@ class _TabBarState extends State<TabBar> {
       tabBar: CupertinoTabBar(
         items: [
           BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.list_bullet), label: "Movies"),
+              icon: Icon(CupertinoIcons.list_bullet, key: WidgetKeys.listTab()), label: "Movies"),
           BottomNavigationBarItem(
-              icon: Icon(CupertinoIcons.heart), label: "Favorites")
+              icon: Icon(CupertinoIcons.heart, key: WidgetKeys.favoriteTab()), label: "Favorites")
         ],
       ),
       tabBuilder: (context, i) {

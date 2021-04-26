@@ -94,7 +94,7 @@ class _MoviesPageState extends State<MoviesPage> {
   Widget _card(int index) {
     Movie movie = _viewModel.movieForIndex(index);
     bool isFavorite = _viewModel.isMovieFavorite(index);
-    return MovieCard(movie, widget._loader, isFavorite, (movie) {
+    return MovieCard(movie, widget._loader, isFavorite, index, (movie) {
       _viewModel.handleFavoriteSelection(movie);
     });
   }
