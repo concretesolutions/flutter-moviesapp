@@ -46,15 +46,24 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./coverage/coverage.xml
 
-      - name: Load Simulator
+      - name: Load iOS Simulator
         run: |
           xcrun simctl boot F2707416-A4C6-4BCC-985B-8B3697376592
-          flutter devices
+
+      - name: Load Android Simulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          target: google_apis
+          profile: Pixel 4
+          script: ./gradlew connectedCheck
 
       - name: UI Test
         env:
           APIKEY: ${{ secrets.APIKEY }}
-        run: flutter driver --target=test_driver/favoriteFlow/favoriteFlow.dart --dart-define=APIKEY=$APIKEY
+        run: |
+          flutter devices
+          flutter driver --target=test_driver/favoriteFlow/favoriteFlow.dart --dart-define=APIKEY=$APIKEY -d F2707416-A4C6-4BCC-985B-8B3697376592
 
       - name: Build
         env:
