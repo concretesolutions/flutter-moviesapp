@@ -48,6 +48,7 @@ jobs:
 
       - name: Load Simulator
         run: |
+          xcrun simctl boot F2707416-A4C6-4BCC-985B-8B3697376592
           xcrun simctl list
 
       # - name: UI Test
