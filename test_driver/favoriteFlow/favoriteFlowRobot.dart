@@ -23,7 +23,6 @@ class FavoriteFlowRobot extends DriverRobot {
     });
   }
 
-
   Future<void> navigateToFavoritesFilms() async {
     await driver.runUnsynchronized(() async {
         await driver.tap(favoriteTab);
