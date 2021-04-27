@@ -52,12 +52,16 @@ jobs:
       - name: Load iOS Simulator
         run: |
           xcrun simctl boot F2707416-A4C6-4BCC-985B-8B3697376592
+
+     - name: Load Android Simulator
+        run: |
+          avdmanager list
+          emulator @Pixel 4
           
       - name: UI Test
         env:
           APIKEY: ${{ secrets.APIKEY }}
         run: |
-          avdmanager list
           flutter devices
           flutter driver --target=test_driver/favoriteFlow/favoriteFlow.dart --dart-define=APIKEY=$APIKEY -d F2707416-A4C6-4BCC-985B-8B3697376592
 
