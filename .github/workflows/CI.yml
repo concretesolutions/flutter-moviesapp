@@ -55,7 +55,8 @@ jobs:
 
       - name: Load Android Simulator
         run: |
-          avdmanager list
+          export PATH="$PATH:$ANDROID_SDK_HOME/emulator:$ANDROID_SDK_HOME/tools:"
+          emulator -list-avds
           emulator @pixel_4
           
       - name: UI Test
