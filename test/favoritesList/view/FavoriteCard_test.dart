@@ -11,7 +11,7 @@ void main() {
 
   setUp(() {
     final movie = MovieStub.stub(10, "Title", "Overview", "", "2021");
-    sut = FavoriteCard(movie, MockImageLoader());
+    sut = FavoriteCard(movie, MockImageLoader(), 0);
   });
 
   group("FavoriteCard", () {

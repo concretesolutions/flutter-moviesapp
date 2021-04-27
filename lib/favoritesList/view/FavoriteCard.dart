@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+
 import '../../moviesList/model/Movie.dart';
 import '../../utils/ImageDownloader.dart';
+import '../../utils/widgetsKeys.dart';
 
 class FavoriteCard extends StatefulWidget {
   final Movie _movie;
   final ImageDownloader _downloader;
+  final int _index;
 
-  const FavoriteCard(this._movie, this._downloader);
+  const FavoriteCard(this._movie, this._downloader, this._index);
 
   @override
   _FavoriteCardState createState() => _FavoriteCardState();
@@ -46,7 +49,9 @@ class _FavoriteCardState extends State<FavoriteCard> {
 
   Widget _title() {
     return Text(widget._movie.title,
-        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold), maxLines: 1);
+        key: WidgetKeys.favoritedFilmTitle(widget._index),
+        style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold), 
+        maxLines: 1);
   }
 
   Widget _release() {

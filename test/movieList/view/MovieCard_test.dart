@@ -13,7 +13,7 @@ void main() {
 
   setUp(() {
     sut = MovieCard(MovieStub.stub(10, "Best movie in the world"),
-        MockImageLoader(), true, (movie) {});
+        MockImageLoader(), true, 0, (movie) {});
   });
 
   group("MovieCard", () {
@@ -44,7 +44,7 @@ void main() {
 
       testWidgets("unfavorite", (WidgetTester tester) async {
         sut = MovieCard(MovieStub.stub(10, "Best movie in the world"),
-            MockImageLoader(), false, (movie) {});
+            MockImageLoader(), false, 0, (movie) {});
 
         await tester.pumpWidget(makeTestable(sut));
 
