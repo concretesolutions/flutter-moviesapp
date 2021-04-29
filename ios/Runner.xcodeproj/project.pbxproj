@@ -15,6 +15,8 @@
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
+		BB09DED7263B1C27002A6123 /* HelloWorldViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB09DED6263B1C27002A6123 /* HelloWorldViewTest.swift */; };
+		BB631644263B165F006AFE4A /* HelloWorldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB631643263B165F006AFE4A /* HelloWorldView.swift */; };
 		BBC218602639EFBA000BE233 /* UIKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC2185F2639EFB9000BE233 /* UIKitView.swift */; };
 		BBC218622639EFC2000BE233 /* UIKitViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC218612639EFC2000BE233 /* UIKitViewFactory.swift */; };
 		BBC67365263A0A17002D92FA /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBC67364263A0A17002D92FA /* Movie.swift */; };
@@ -69,6 +71,8 @@
 		97C146FD1CF9000F007C117D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BB09DED6263B1C27002A6123 /* HelloWorldViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloWorldViewTest.swift; sourceTree = "<group>"; };
+		BB631643263B165F006AFE4A /* HelloWorldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelloWorldView.swift; sourceTree = "<group>"; };
 		BBC2185F2639EFB9000BE233 /* UIKitView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitView.swift; sourceTree = "<group>"; };
 		BBC218612639EFC2000BE233 /* UIKitViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitViewFactory.swift; sourceTree = "<group>"; };
 		BBC67364263A0A17002D92FA /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
@@ -152,6 +156,7 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				BB631642263B1645006AFE4A /* HelloWorld */,
 				BBC67360263A09E3002D92FA /* TableView */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
@@ -174,6 +179,14 @@
 				F0EC9F0685ED93D555E15783 /* Pods_moviesappTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BB631642263B1645006AFE4A /* HelloWorld */ = {
+			isa = PBXGroup;
+			children = (
+				BB631643263B165F006AFE4A /* HelloWorldView.swift */,
+			);
+			path = HelloWorld;
 			sourceTree = "<group>";
 		};
 		BBC67360263A09E3002D92FA /* TableView */ = {
@@ -218,6 +231,7 @@
 				BBC6737F263A0B28002D92FA /* List.swift */,
 				BBC67383263A0B2E002D92FA /* TestCell.swift */,
 				BBC67374263A0A64002D92FA /* Info.plist */,
+				BB09DED6263B1C27002A6123 /* HelloWorldViewTest.swift */,
 			);
 			path = moviesappTests;
 			sourceTree = "<group>";
@@ -457,6 +471,7 @@
 				BBC67365263A0A17002D92FA /* Movie.swift in Sources */,
 				BBC6736B263A0A33002D92FA /* ViewModel.swift in Sources */,
 				BBC67367263A0A22002D92FA /* ListMoviesView.swift in Sources */,
+				BB631644263B165F006AFE4A /* HelloWorldView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -466,6 +481,7 @@
 			files = (
 				BBC67384263A0B2E002D92FA /* TestCell.swift in Sources */,
 				BBC6737D263A0B20002D92FA /* MovieFakes.swift in Sources */,
+				BB09DED7263B1C27002A6123 /* HelloWorldViewTest.swift in Sources */,
 				BBC67380263A0B28002D92FA /* List.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
