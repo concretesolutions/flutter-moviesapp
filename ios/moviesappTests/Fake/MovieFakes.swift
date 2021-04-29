@@ -1,30 +1,12 @@
 //
-//  UIKitView.swift
-//  Runner
+//  Movie.swift
+//  moviesappTests
 //
-//  Created by mateus.santos on 23/04/21.
+//  Created by mateus.santos on 27/04/21.
 //
 
-import Foundation
-
-public class UIKitView: NSObject, FlutterPlatformView {
-
-    let frame: CGRect
-    let viewId: Int64
-    
-    init(_ frame:CGRect, viewId:Int64, args:Any?) {
-        self.frame = frame
-        self.viewId = viewId
-    }
-    
-    public func view() -> UIView {
-        let listView = ListMoviesView(numberItens: 3, listMovie: [MovieFake1(),MovieFake2(),MovieFake3()])
-        listView.translatesAutoresizingMaskIntoConstraints = false
-        listView.widthAnchor.constraint(equalToConstant: UIScreen.main.bounds.width).isActive = true
-        listView.heightAnchor.constraint(equalToConstant: UIScreen.main.bounds.height).isActive = true
-        return listView
-    }
-}
+import XCTest
+@testable import Runner
 
 struct MovieFake1:Movie {
     var id:Int
