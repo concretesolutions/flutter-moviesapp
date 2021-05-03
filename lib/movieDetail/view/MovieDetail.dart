@@ -24,34 +24,46 @@ class _MovieDetailState extends State<MovieDetail> {
     isFavorited = widget._viewModel.isFavorited;
   }
 
-  @override
   Widget build(BuildContext context) {
+    // This is used in the platform side to register the view.
     final String viewType = '<platform-view-type>';
+    // Pass parameters to the platform side.
     final Map<String, dynamic> creationParams = <String, dynamic>{};
 
-    return PlatformViewLink(
-      viewType: viewType,
-      surfaceFactory:
-          (BuildContext context, PlatformViewController controller) {
-        return AndroidViewSurface(
-            controller: controller,
-            gestureRecognizers: const <Factory<OneSequenceGestureRecognizer>>{
-            },
-            hitTestBehavior: PlatformViewHitTestBehavior.opaque
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+        // return widget on Android.
+        return PlatformViewLink(
+          viewType: viewType,
+          surfaceFactory:
+              (BuildContext context, PlatformViewController controller) {
+            return AndroidViewSurface(
+                controller: controller,
+                gestureRecognizers: const <
+                    Factory<OneSequenceGestureRecognizer>>{},
+                hitTestBehavior: PlatformViewHitTestBehavior.opaque);
+          },
+          onCreatePlatformView: (PlatformViewCreationParams params) {
+            return PlatformViewsService.initSurfaceAndroidView(
+              id: params.id,
+              viewType: viewType,
+              layoutDirection: TextDirection.ltr,
+              creationParams: creationParams,
+              creationParamsCodec: StandardMessageCodec(),
+            )
+              ..addOnPlatformViewCreatedListener(params.onPlatformViewCreated)
+              ..create();
+          },
         );
-      },
-      onCreatePlatformView: (PlatformViewCreationParams params) {
-        return PlatformViewsService.initSurfaceAndroidView(
-          id: params.id,
+      case TargetPlatform.iOS:
+        return UiKitView(
           viewType: viewType,
           layoutDirection: TextDirection.ltr,
           creationParams: creationParams,
-          creationParamsCodec: StandardMessageCodec(),
-        )
-          ..addOnPlatformViewCreatedListener(params.onPlatformViewCreated)
-          ..create();
-      },
-    );
-
+          creationParamsCodec: const StandardMessageCodec(),
+        );
+      default:
+        throw UnsupportedError("Unsupported platform view");
+    }
   }
 }

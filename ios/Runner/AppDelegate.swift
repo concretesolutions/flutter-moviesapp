@@ -8,6 +8,11 @@ import Flutter
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
     GeneratedPluginRegistrant.register(with: self)
+
+    let viewFactory = UIKitViewFactory()
+    registrar(forPlugin: "Kitty")?.register(viewFactory, 
+    withId: "<platform-view-type>")
+        
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }
