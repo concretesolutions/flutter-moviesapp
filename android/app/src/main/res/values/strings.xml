@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="Title">Movies</string>
+    <string name="movie_name">Tom &amp; Jerry</string>
+    <string name="film_description">Jerry moves to New York\'s wealthiest hotel on the eve of the century\'s wedding, forcing the desperate event organizer to hire Tom to get rid of the rat. </string>
+    <string name="release_date">2021</string>
+    <string name="movie_genrer">Animation, Comedy</string>
 </resources>
