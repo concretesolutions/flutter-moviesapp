@@ -1,6 +1,7 @@
 import UIKit
 import Flutter
 
+@available(iOS 13.0, *)
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
   override func application(

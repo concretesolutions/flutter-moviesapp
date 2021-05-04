@@ -8,10 +8,9 @@
 import Foundation
 
 
+@available(iOS 13.0, *)
 public class UIKitViewFactory: NSObject, FlutterPlatformViewFactory {
     public func create(withFrame frame: CGRect, viewIdentifier viewId: Int64, arguments args: Any?) -> FlutterPlatformView {
         return UIKitView(frame, viewId: viewId, args: args)
     }
-    
-    
 }
