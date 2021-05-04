@@ -14,6 +14,8 @@ class MovieDetailView:UIView {
     
     var movie:Movie?
     
+    var isFavorite:Bool = false
+    
     let separatorView1:UIView = {
         let view = UIView()
         view.backgroundColor = .black
@@ -40,6 +42,8 @@ class MovieDetailView:UIView {
     
     let imageViewMovie:UIImageView = {
         let imageView = UIImageView()
+        imageView.clipsToBounds = true
+        imageView.image = UIImage(named: "homenAranha_poster")
         imageView.backgroundColor = .red
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -59,7 +63,9 @@ class MovieDetailView:UIView {
     
     let favoriteIconMovie:UIImageView = {
         let imageView = UIImageView()
+        imageView.isUserInteractionEnabled = true
         imageView.image = UIImage(systemName: "heart")
+        imageView.tintColor = .systemYellow
         imageView.contentMode = .center
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -95,7 +101,7 @@ class MovieDetailView:UIView {
         label.numberOfLines = 0
         label.textColor = .black
         label.textAlignment = .justified
-        label.text = self.movie?.title
+        label.text = "Ação/Aventura"
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -126,6 +132,23 @@ class MovieDetailView:UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let firstTouch = touches.first
+        let location = firstTouch?.location(in: self) ?? .zero
+        
+        let elementTouched = self.hitTest(location, with: event)
+        
+        if elementTouched == self.favoriteIconMovie {
+            if isFavorite == false {
+                isFavorite = true
+                favoriteIconMovie.image = UIImage(systemName: "heart.fill")
+            }else{
+                isFavorite = false
+                favoriteIconMovie.image = UIImage(systemName: "heart")
+            }
+        }
     }
 }
 
