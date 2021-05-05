@@ -25,6 +25,16 @@ class _MovieDetailState extends State<MovieDetail> {
   }
 
   Widget build(BuildContext context) {
+    return CupertinoPageScaffold(
+      backgroundColor: Colors.white,
+      navigationBar: CupertinoNavigationBar(
+        middle: const Text("Movie Detail"),
+      ),
+      child: _body(),
+    );
+  }
+
+  Widget _body() {
     // This is used in the platform side to register the view.
     final String viewType = '<platform-view-type>';
     // Pass parameters to the platform side.
