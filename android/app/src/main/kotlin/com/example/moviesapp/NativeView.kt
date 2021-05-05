@@ -8,10 +8,10 @@ import io.flutter.plugin.platform.PlatformView
 
 class NativeView(context: Context) : PlatformView {
 
-    var inflater = LayoutInflater.from(context)
+    private var inflater = LayoutInflater.from(context)
 
     override fun getView(): View {
-        return inflater.inflate(R.layout.activity_main, null)
+        return inflater.inflate(R.layout.activity_detail, null)
     }
 
     override fun dispose() {}

@@ -5,18 +5,24 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:moviesapp/movieDetail/viewModel/MovieDetailViewModel.dart';
+import 'package:moviesapp/moviesList/model/Movie.dart';
 
 class MovieDetail extends StatefulWidget {
   final MovieDetailViewModel _viewModel;
+  final Movie movie;
 
-  MovieDetail(this._viewModel);
+  MovieDetail(this._viewModel, this.movie);
 
   @override
-  _MovieDetailState createState() => _MovieDetailState();
+  _MovieDetailState createState() {
+    return _MovieDetailState();
+  }
 }
 
 class _MovieDetailState extends State<MovieDetail> {
   bool isFavorited;
+
+  get creationParams => creationParams;
 
   @override
   void initState() {
@@ -67,11 +73,12 @@ class _MovieDetailState extends State<MovieDetail> {
         );
       case TargetPlatform.iOS:
         return UiKitView(
-          viewType: viewType,
-          layoutDirection: TextDirection.ltr,
-          creationParams: creationParams,
-          creationParamsCodec: const StandardMessageCodec(),
+            viewType: viewType,
+            layoutDirection: TextDirection.ltr,
+            creationParams: creationParams,
+            creationParamsCodec: const StandardMessageCodec()
         );
+
       default:
         throw UnsupportedError("Unsupported platform view");
     }
