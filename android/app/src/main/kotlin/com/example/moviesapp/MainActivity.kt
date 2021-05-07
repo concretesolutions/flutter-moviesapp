@@ -1,5 +1,6 @@
 package com.example.moviesapp
 
+import com.example.moviesapp.NativeView.NativeViewFactory
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 

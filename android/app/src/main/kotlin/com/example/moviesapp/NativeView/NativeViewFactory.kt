@@ -1,4 +1,4 @@
-package com.example.moviesapp
+package com.example.moviesapp.NativeView
 
 import android.content.Context
 import io.flutter.plugin.common.StandardMessageCodec
