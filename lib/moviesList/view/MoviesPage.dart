@@ -127,6 +127,6 @@ class _MoviesPageState extends State<MoviesPage> {
         context,
         CupertinoPageRoute(
             builder: (BuildContext context) =>
-                MovieDetail(movieDetailViewModel, movie)));
+                MovieDetail(movieDetailViewModel)));
   }
 }
