@@ -1,0 +1,57 @@
+PODS:
+  - Alamofire (5.4.3)
+  - Flutter (1.0.0)
+  - FlutterPluginRegistrant (0.0.1):
+    - Flutter
+  - iOSSnapshotTestCase (6.2.0):
+    - iOSSnapshotTestCase/SwiftSupport (= 6.2.0)
+  - iOSSnapshotTestCase/Core (6.2.0)
+  - iOSSnapshotTestCase/SwiftSupport (6.2.0):
+    - iOSSnapshotTestCase/Core
+  - Kingfisher (6.3.0)
+  - list_favorites (0.0.1):
+    - Flutter
+  - Realm (10.1.4):
+    - Realm/Headers (= 10.1.4)
+  - Realm/Headers (10.1.4)
+  - RealmSwift (10.1.4):
+    - Realm (= 10.1.4)
+
+DEPENDENCIES:
+  - Alamofire (~> 5.2)
+  - Flutter (from `../list_favorites/.ios/Flutter/engine`)
+  - FlutterPluginRegistrant (from `../list_favorites/.ios/Flutter/FlutterPluginRegistrant`)
+  - iOSSnapshotTestCase
+  - Kingfisher (~> 6.0)
+  - list_favorites (from `../list_favorites/.ios/Flutter`)
+  - RealmSwift (= 10.1.4)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - iOSSnapshotTestCase
+    - Kingfisher
+    - Realm
+    - RealmSwift
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: "../list_favorites/.ios/Flutter/engine"
+  FlutterPluginRegistrant:
+    :path: "../list_favorites/.ios/Flutter/FlutterPluginRegistrant"
+  list_favorites:
+    :path: "../list_favorites/.ios/Flutter"
+
+SPEC CHECKSUMS:
+  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
+  Flutter: ac41d61a47ae5bf8195a5598d2d63754888ec0d5
+  FlutterPluginRegistrant: 2afd5ea46d3a949472c9b7da6462d8fbf7d8b16e
+  iOSSnapshotTestCase: 9ab44cb5aa62b84d31847f40680112e15ec579a6
+  Kingfisher: 6c3df386db71d82c0817a429d2c9421a77396529
+  list_favorites: ce08455dec7a7491a212b50e6f506562408aab43
+  Realm: 80f4fb2971ccb9adc27a47d0955ae8e533a7030b
+  RealmSwift: 0e566ca714edb377bba8ea0811eafcea0b93734e
+
+PODFILE CHECKSUM: d3935f6de9475833716754e88c1927405908fe94
+
+COCOAPODS: 1.10.1
