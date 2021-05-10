@@ -13,4 +13,8 @@ internal class FLMovieDetailViewFactory: NSObject, FlutterPlatformViewFactory {
         return FLMovieDetailView(frame, viewId: viewId, args: args)
     }
 
+    internal func createArgsCodec() -> FlutterMessageCodec & NSObjectProtocol {
+        return FlutterJSONMessageCodec()
+    }
+
 }

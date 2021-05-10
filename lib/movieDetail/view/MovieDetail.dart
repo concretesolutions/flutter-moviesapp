@@ -5,13 +5,11 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:moviesapp/movieDetail/viewModel/MovieDetailViewModel.dart';
-import 'package:moviesapp/moviesList/model/Movie.dart';
 
 class MovieDetail extends StatefulWidget {
   final MovieDetailViewModel _viewModel;
-  final Movie movie;
 
-  MovieDetail(this._viewModel, this.movie);
+  MovieDetail(this._viewModel);
 
   @override
   _MovieDetailState createState() {
@@ -21,8 +19,6 @@ class MovieDetail extends StatefulWidget {
 
 class _MovieDetailState extends State<MovieDetail> {
   bool isFavorited;
-
-  get creationParams => creationParams;
 
   @override
   void initState() {
@@ -43,8 +39,6 @@ class _MovieDetailState extends State<MovieDetail> {
   Widget _body() {
     // This is used in the platform side to register the view.
     final String viewType = '<platform-view-type>';
-    // Pass parameters to the platform side.
-    final Map<String, dynamic> creationParams = <String, dynamic>{};
 
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -64,8 +58,8 @@ class _MovieDetailState extends State<MovieDetail> {
               id: params.id,
               viewType: viewType,
               layoutDirection: TextDirection.ltr,
-              creationParams: creationParams,
-              creationParamsCodec: StandardMessageCodec(),
+              creationParams: widget._viewModel.movie.toJSONEncodable(),
+              creationParamsCodec: JSONMessageCodec(),
             )
               ..addOnPlatformViewCreatedListener(params.onPlatformViewCreated)
               ..create();
@@ -75,8 +69,8 @@ class _MovieDetailState extends State<MovieDetail> {
         return UiKitView(
             viewType: viewType,
             layoutDirection: TextDirection.ltr,
-            creationParams: creationParams,
-            creationParamsCodec: const StandardMessageCodec()
+            creationParams: widget._viewModel.movie.toJSONEncodable(),
+            creationParamsCodec: const JSONMessageCodec()
         );
 
       default:

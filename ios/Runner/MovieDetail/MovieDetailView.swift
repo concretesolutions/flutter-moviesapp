@@ -20,7 +20,6 @@ internal class MovieDetailView: UIView {
         movieDescriptionLabel = UILabel()
         super.init(frame: frame)
         setupViews()
-        bind(movie: Movie(title: "asda", description: "sasdads", coverURL: URL(string: "https://upload.wikimedia.org/wikipedia/pt/9/9b/Avengers_Endgame.jpg")!))
     }
 
     @available(*, unavailable)
