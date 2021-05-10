@@ -51,16 +51,23 @@ class MoviesViewController: UIViewController{
     
     override func viewDidLoad() {
         viewModel.fetch()
+        addTrigerrs()
     }
 }
 
 //MARK: Triggers
 extension MoviesViewController{
-    @objc func showFlutter() {
+    
+    func addTrigerrs(){
+        viewBase.movieToFlutterButton.addTarget(self, action: #selector(showFlutter), for: .touchUpInside)
+    }
+    
+    @objc func showFlutter(){
       let flutterEngine = (UIApplication.shared.delegate as! AppDelegate).flutterEngine
       let flutterViewController =
           FlutterViewController(engine: flutterEngine, nibName: nil, bundle: nil)
-      present(flutterViewController, animated: true, completion: nil)
+        
+        self.navigationController?.pushViewController(flutterViewController, animated: true)
     }
 }
 
