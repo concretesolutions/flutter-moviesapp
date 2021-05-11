@@ -1,8 +1,8 @@
-import 'package:moviesapp/moviesList/model/Movie.dart';
-import 'package:moviesapp/moviesList/service/MoviesListRequest.dart';
-import 'package:moviesapp/network/APIClient.dart';
-import 'package:moviesapp/network/Decodable.dart';
-import 'package:moviesapp/network/Result.dart';
+import '../../network/APIClient.dart';
+import '../../network/Decodable.dart';
+import '../../network/Result.dart';
+import '../model/Movie.dart';
+import 'MoviesListRequest.dart';
 
 class MoviesListService {
   APIClient _client;
@@ -12,7 +12,7 @@ class MoviesListService {
   }
 
   Future<Result<Decodable>> fetchMovies(int page) async {
-    final request = MoviesListRequest(page);
+    MoviesListRequest request = MoviesListRequest(page);
     return await _client.requestDecodable(request, Movies());
   }
 }

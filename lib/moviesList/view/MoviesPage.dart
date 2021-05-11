@@ -11,10 +11,17 @@ import 'package:moviesapp/utils/ImageDownloader.dart';
 import 'package:moviesapp/view/ErrorPage.dart';
 import 'package:provider/provider.dart';
 
+import '../../network/APIResponse.dart';
+import '../../utils/ImageDownloader.dart';
+import '../../view/ErrorPage.dart';
+import '../model/Movie.dart';
+import '../viewModel/MoviesListViewModel.dart';
+import 'MovieCard.dart';
+
 class MoviesPage extends StatefulWidget {
   final ImageDownloader _loader;
 
-  MoviesPage(this._loader);
+  const MoviesPage(this._loader);
 
   @override
   _MoviesPageState createState() => _MoviesPageState();
@@ -82,7 +89,7 @@ class _MoviesPageState extends State<MoviesPage> {
   }
 
   Widget _itemForIndex(int index) {
-    final moviesCount = _viewModel.moviesCount();
+    int moviesCount = _viewModel.moviesCount();
     if (index < moviesCount) {
       return _card(index);
     } else if (index == moviesCount) {
@@ -116,9 +123,7 @@ class _MoviesPageState extends State<MoviesPage> {
   }
 
   Widget _error() {
-    return ErrorPage(() {
-      _fetchMovies();
-    });
+    return ErrorPage(_fetchMovies);
   }
 
   void _selectedMovie(Movie movie, bool isFavorited) {

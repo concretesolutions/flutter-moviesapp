@@ -1,4 +1,4 @@
-import 'package:moviesapp/network/APIError.dart';
+import 'APIError.dart';
 
 enum ResultType { success, error }
 

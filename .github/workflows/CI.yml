@@ -5,6 +5,7 @@ jobs:
   ci:
     name: CI Flutter
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -21,12 +22,15 @@ jobs:
 
       - name: Dart Version
         run: dart --version
-      
+
       - name: Flutter version
         run: flutter --version
 
       - name: Pub get
         run: flutter pub get
+
+      - name: Lint
+        run: flutter analyze
 
       - name: Test
         env:
@@ -46,3 +50,5 @@ jobs:
         env:
           APIKEY: ${{ secrets.APIKEY }}
         run: flutter build apk --dart-define=APIKEY=$APIKEY
+        
+

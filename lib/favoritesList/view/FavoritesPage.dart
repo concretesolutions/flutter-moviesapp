@@ -1,15 +1,16 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:moviesapp/favoritesList/view/FavoriteCard.dart';
-import 'package:moviesapp/moviesList/model/Movie.dart';
-import 'package:moviesapp/storage/FavoriteStorageProtocol.dart';
-import 'package:moviesapp/utils/ImageDownloader.dart';
+import 'package:flutter/material.dart';
+
+import '../../moviesList/model/Movie.dart';
+import '../../storage/FavoriteStorageProtocol.dart';
+import '../../utils/ImageDownloader.dart';
+import 'FavoriteCard.dart';
 
 class FavoritesPage extends StatefulWidget {
   final ImageDownloader _downloader;
   final FavoriteStorageProtocol _storage;
 
-  FavoritesPage(this._downloader, this._storage);
+  const FavoritesPage(this._downloader, this._storage);
 
   @override
   _FavoritesPageState createState() => _FavoritesPageState();
@@ -28,7 +29,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
   }
 
   Widget _content() {
-    final movies = widget._storage.getFavoritesMovies();
+    List<Movie> movies = widget._storage.getFavoritesMovies();
     if (movies.isEmpty) {
       return _emptyState();
     } else {
