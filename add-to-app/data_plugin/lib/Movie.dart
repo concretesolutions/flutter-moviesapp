@@ -5,7 +5,7 @@ import 'dart:ffi';
 class Movie {
   final String title;
   final String path;
-  final String Overview;
+  final String overview;
 
-  Movie(this.title, this.path, this.Overview);
+  Movie(this.title, this.path, this.overview);
 }

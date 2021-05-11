@@ -10,30 +10,32 @@ import RealmSwift
 class CRUDRealm {
     let realm = try! Realm()
     
-    var movies: Results<Movie>!
+    var movies: Results<MovieObject>!
     
-    func save(_ object:Movie){
+    func save(_ object:MovieObject) -> Bool{
         print(Realm.Configuration.defaultConfiguration.fileURL as Any)
         do {
             try realm.write{
                 realm.add(object)
             }
+            return true
         } catch {
             print("Error in save method")
+            return false
         }
     }
     
     func fetch() {
-        movies = realm.objects(Movie.self)
+        movies = realm.objects(MovieObject.self)
     }
     
-    func update(_ index:Int,_ newObject: Movie) {
+    func update(_ index:Int,_ newObject: MovieObject) {
         if let movie = movies?[index]{
             do {
                 try realm.write{
-                    movie.title = newObject.title ?? ""
-                    movie.overview = newObject.overview ?? ""
-                    movie.poster_path = newObject.poster_path ?? ""
+                    movie.title = newObject.title
+                    movie.overview = newObject.overview
+                    movie.poster_path = newObject.poster_path
                 }
             } catch {
                 print("Error in update method")

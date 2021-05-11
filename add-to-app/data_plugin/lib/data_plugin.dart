@@ -7,21 +7,19 @@ import 'package:flutter/services.dart';
 class DataPlugin {
   static const MethodChannel _channel = const MethodChannel('data_plugin');
 
-  static Future<MovieReturn?> get getMovies async {
-    final moviesResult = await _channel.invokeMethod('dataRealmSwiftFetch');
-    var list = [];
-    var nativeResponse = List.castFrom(moviesResult);
+  static Future<Map<dynamic, dynamic>?> get getMovies async {
+    final Map<dynamic, dynamic> moviesResult =
+        await _channel.invokeMethod('dataRealmSwiftFetch');
 
-    nativeResponse.forEach((objeto) {
-      var movie = objeto as Movie;
-      list.add(movie);
-    });
+    //print(moviesResult.entries);
 
-    return MovieReturn(list);
+    return moviesResult;
   }
 
-  static Future<bool?> get saveMovie async {
-    final result = await _channel.invokeMethod('dataRealmSwiftInsert');
+  static Future<bool?> saveMovie(
+      String title, String path, String overview) async {
+    final result = await _channel.invokeMethod('dataRealmSwiftInsert',
+        <String, dynamic>{'title': title, 'path': path, 'overview': overview});
     return true;
   }
 }

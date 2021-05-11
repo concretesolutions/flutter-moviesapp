@@ -18,7 +18,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var _saveOperation = false;
-  var _movies = [];
+  Map<dynamic, dynamic>? _responseNative;
 
   @override
   void initState() {
@@ -29,28 +29,23 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> initPlatformState() async {
     var saveOperation = false;
-    var movies = [];
+    Map<dynamic, dynamic>? responseNative;
 
     try {
-      var responseSave = await DataPlugin.saveMovie;
-      var responseSaveCast = responseSave as bool;
-
-      if (responseSaveCast == true) {
-        saveOperation = true;
-        var responseNative = await DataPlugin.getMovies;
-        var returnedMovies = responseNative as MovieReturn;
-        movies = returnedMovies.listMovies;
-        print(movies);
-      }
+      var responseSave = await DataPlugin.saveMovie(
+          "Star Wars", "/dfdf.png", "Guerra no vácuo");
+      saveOperation = responseSave as bool;
+      responseNative = await DataPlugin.getMovies;
+      print(responseNative);
     } on PlatformException {
-      movies = [];
+      responseNative = null;
     }
 
     if (!mounted) return;
 
     setState(() {
       _saveOperation = saveOperation;
-      _movies = movies;
+      _responseNative = responseNative;
     });
   }
 
@@ -62,7 +57,11 @@ class _MyAppState extends State<MyApp> {
           title: Text("Teste do Data Plugin"),
         ),
         body: Center(
-          child: Text("Result save operation: ${_saveOperation}"),
+          child: Column(children: [
+            Text("Resultado do Save ${_saveOperation}"),
+            Text("${_responseNative?.keys}"),
+            Text("${_responseNative?.values}"),
+          ]),
         ),
       ),
     );

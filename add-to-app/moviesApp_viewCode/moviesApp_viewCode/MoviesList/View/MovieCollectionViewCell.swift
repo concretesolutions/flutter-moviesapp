@@ -85,6 +85,8 @@ class MovieCollectionViewCell:UICollectionViewCell {
                 movie.poster_path = self.poster_path
                 crud.save(movie)
                 
+                let result = crud.fetch()
+                
                 icon.image = UIImage(systemName: "heart.fill")
             }else{
                 isFavorite = false
