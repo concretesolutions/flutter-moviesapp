@@ -2,15 +2,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/ImageDownloader.dart';
+import '../../utils/widgetsKeys.dart';
 import '../model/Movie.dart';
 
 class MovieCard extends StatefulWidget {
   final Movie _movie;
   final ImageDownloader _loader;
   final bool _isFavorite;
+  final int _index;
   final Function(Movie) _favoriteSelection;
 
-  const MovieCard(this._movie, this._loader, this._isFavorite, this._favoriteSelection);
+  const MovieCard(this._movie, this._loader, this._isFavorite, this._index, this._favoriteSelection);
 
   @override
   _MovieCardState createState() => _MovieCardState();
@@ -90,6 +92,7 @@ class _MovieCardState extends State<MovieCard> with TickerProviderStateMixin {
   Widget _favoriteButton() {
     return Center(
         child: IconButton(
+          key: WidgetKeys.favoriteIcon(widget._index),
           icon: Icon(CupertinoIcons.heart_fill,
           color: isFavorited ? Colors.red : Colors.black54),
           onPressed: () {

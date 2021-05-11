@@ -1,7 +1,7 @@
-import 'package:moviesapp/moviesList/model/Movie.dart';
-import 'package:moviesapp/storage/FavoriteStorage.dart';
-import 'package:moviesapp/storage/FavoriteStorageProtocol.dart';
-import 'package:moviesapp/utils/ImageDownloader.dart';
+import '../../moviesList/model/Movie.dart';
+import '../../storage/FavoriteStorage.dart';
+import '../../storage/FavoriteStorageProtocol.dart';
+import '../../utils/ImageDownloader.dart';
 
 class MovieDetailViewModel {
   Movie movie;
@@ -18,7 +18,7 @@ class MovieDetailViewModel {
   }
 
   Future<void> handleFavoriteSelection() async{
-    final id = movie.id;
+    int id = movie.id;
     if (_storage.isFavoriteMovie(id)) {
       _storage.unfavoriteMovie(id);
     } else {

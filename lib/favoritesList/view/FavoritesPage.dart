@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../moviesList/model/Movie.dart';
 import '../../storage/FavoriteStorageProtocol.dart';
 import '../../utils/ImageDownloader.dart';
+import '../../utils/widgetsKeys.dart';
 import 'FavoriteCard.dart';
 
 class FavoritesPage extends StatefulWidget {
@@ -45,7 +46,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
           itemBuilder: (BuildContext context, int index) {
             return Container(
                 padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
-                child: FavoriteCard(movies[index], widget._downloader));
+                child: FavoriteCard(movies[index], widget._downloader, index));
           }),
     );
   }
@@ -55,6 +56,6 @@ class _FavoritesPageState extends State<FavoritesPage> {
         padding: const EdgeInsets.all(16),
         child: Center(
             child: Text(
-                "You don't have any favorite movies yet. You can favorite in the list.", textAlign: TextAlign.center)));
+                "You don't have any favorite movies yet. You can favorite in the list.", key: WidgetKeys.emptyFilms(), textAlign: TextAlign.center)));
   }
 }

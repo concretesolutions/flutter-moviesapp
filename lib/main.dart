@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:moviesapp/view/TabBar.dart';
-
+import 'view/TabBar.dart';
 
 void main() {
   runApp(MoviesApp());

@@ -41,5 +41,6 @@ analyzer:
   exclude:
     - .history/**
     - test/**
+    - test_driver/**
     - bin/cache/**
 

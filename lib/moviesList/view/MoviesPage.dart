@@ -1,16 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:moviesapp/movieDetail/view/movieDetail.dart';
-import 'package:moviesapp/movieDetail/viewModel/MovieDetailViewModel.dart';
-import 'package:moviesapp/moviesList/model/Movie.dart';
-import 'package:moviesapp/moviesList/view/MovieCard.dart';
-import 'package:moviesapp/moviesList/viewModel/MoviesListViewModel.dart';
-import 'package:moviesapp/network/APIResponse.dart';
-import 'package:moviesapp/utils/ImageDownloader.dart';
-import 'package:moviesapp/view/ErrorPage.dart';
 import 'package:provider/provider.dart';
 
+import '../../movieDetail/view/movieDetail.dart';
+import '../../movieDetail/viewModel/MovieDetailViewModel.dart';
 import '../../network/APIResponse.dart';
 import '../../utils/ImageDownloader.dart';
 import '../../view/ErrorPage.dart';
@@ -101,13 +95,13 @@ class _MoviesPageState extends State<MoviesPage> {
   }
 
   Widget _card(int index) {
-    final movie = _viewModel.movieForIndex(index);
-    final isFavorite = _viewModel.isMovieFavorite(index);
+    Movie movie = _viewModel.movieForIndex(index);
+    bool isFavorite = _viewModel.isMovieFavorite(index);
     return GestureDetector(
         onTap: () {
           _selectedMovie(movie, _viewModel.isMovieFavorite(index));
         },
-        child: MovieCard(movie, widget._loader, isFavorite, (movie) {
+        child: MovieCard(movie, widget._loader, isFavorite, index, (movie) {
           _viewModel.handleFavoriteSelection(movie);
         }));
   }
@@ -127,7 +121,7 @@ class _MoviesPageState extends State<MoviesPage> {
   }
 
   void _selectedMovie(Movie movie, bool isFavorited) {
-    final movieDetailViewModel = MovieDetailViewModel(movie, isFavorited);
+    MovieDetailViewModel movieDetailViewModel = MovieDetailViewModel(movie, isFavorited);
     Navigator.push(
         context,
         CupertinoPageRoute(
