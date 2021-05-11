@@ -7,7 +7,7 @@
 
 import RealmSwift
 
-class MovieObject:Object {
+class Movie:Object {
     @objc dynamic var title:String = ""
     @objc dynamic var overview:String = ""
     @objc dynamic var poster_path:String = ""

@@ -10,9 +10,9 @@ import RealmSwift
 class CRUDRealm {
     let realm = try! Realm()
     
-    var movies: Results<MovieObject>!
+    var movies: Results<Movie>!
     
-    func save(_ object:MovieObject){
+    func save(_ object:Movie){
         print(Realm.Configuration.defaultConfiguration.fileURL as Any)
         do {
             try realm.write{
@@ -24,7 +24,7 @@ class CRUDRealm {
     }
     
     func fetch() {
-        movies = realm.objects(MovieObject.self)
+        movies = realm.objects(Movie.self)
     }
     
     func update(_ index:Int,_ newObject: Movie) {

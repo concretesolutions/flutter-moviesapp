@@ -3,6 +3,8 @@ import UIKit
 import RealmSwift
 
 public class SwiftDataPlugin: NSObject, FlutterPlugin {
+  let crud = CRUDRealm()
+
   public static func register(with registrar: FlutterPluginRegistrar) {
     let channel = FlutterMethodChannel(name: "data_plugin", binaryMessenger: registrar.messenger())
     let instance = SwiftDataPlugin()
@@ -13,36 +15,36 @@ public class SwiftDataPlugin: NSObject, FlutterPlugin {
     
     DispatchQueue.global(qos: .default).async {
         if call.method == "dataRealmSwiftFetch" {
-          let args = call.arguments as! NSDictionary
-          let path = args["path"] as! String
-          var endOperation:Bool = false
-          var movies = []
+            
 
+            DispatchQueue.main.sync {
+            let crud = CRUDRealm()
+            var movies:[Movie] = []
+            crud.fetch()
+            movies = Array(crud.movies)
+            result(movies)
+                if movies.isEmpty {
+                  DispatchQueue.main.sync {
+                    result(FlutterError(code: "Sem Resultados",
+                    message: "Insira dados pelo RealmSwift",
+                    details: nil))
+                  }
+               }
+            }
+        }
+           if call.method == "dataRealmSwiftInsert" {
+            DispatchQueue.main.sync {
+            var movie = Movie()
+            movie.title = "Homen Aranha"
+            movie.poster_path = ""
+            movie.overview = "dfdf df df df d f df df d f d"
 
-      }
-       if call.method == "dataRealmSwiftUpdate" {
-          let args = call.arguments as! NSDictionary
-          let path = args["path"] as! String
-          var endOperation:Bool = false
-          var movies = []
-
-
-      }
-       if call.method == "dataRealmSwiftDrop" {
-          let args = call.arguments as! NSDictionary
-          let path = args["path"] as! String
-          var endOperation:Bool = false
-          var movies = []
-
-
-      }
-       if call.method == "dataRealmSwiftInsert" {
-          let args = call.arguments as! NSDictionary
-          let path = args["path"] as! String
-          var endOperation:Bool = false
-          var movies = []
-
-      
-      }
+            
+              let crud = CRUDRealm()
+              crud.save(movie)
+            result(true)
+          }
+        }
+   }
   }
 }

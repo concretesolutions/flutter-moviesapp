@@ -1,0 +1,35 @@
+PODS:
+  - data_plugin (0.0.1):
+    - Flutter
+    - RealmSwift
+  - Flutter (1.0.0)
+  - Realm (10.7.4):
+    - Realm/Headers (= 10.7.4)
+  - Realm/Headers (10.7.4)
+  - RealmSwift (10.7.4):
+    - Realm (= 10.7.4)
+
+DEPENDENCIES:
+  - data_plugin (from `.symlinks/plugins/data_plugin/ios`)
+  - Flutter (from `Flutter`)
+
+SPEC REPOS:
+  trunk:
+    - Realm
+    - RealmSwift
+
+EXTERNAL SOURCES:
+  data_plugin:
+    :path: ".symlinks/plugins/data_plugin/ios"
+  Flutter:
+    :path: Flutter
+
+SPEC CHECKSUMS:
+  data_plugin: 105653ef4d4893a88a77da3f6f783b5ab068ba9b
+  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  Realm: f08ce1a85649a41303ecfe1cbd914c62e9e6d710
+  RealmSwift: 60ec49d165f23d040ab48811d8dd177e09baf4d3
+
+PODFILE CHECKSUM: ac18d8c2735430a8cfba53e9cb362aceac9751ae
+
+COCOAPODS: 1.10.1

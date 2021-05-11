@@ -18,6 +18,6 @@ void main() {
   });
 
   test('getPlatformVersion', () async {
-    expect(await DataPlugin.platformVersion, '42');
+    expect(await DataPlugin, '42');
   });
 }
