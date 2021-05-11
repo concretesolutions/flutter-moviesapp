@@ -32,9 +32,9 @@ class _MyAppState extends State<MyApp> {
     Map<dynamic, dynamic>? responseNative;
 
     try {
-      var responseSave = await DataPlugin.saveMovie(
-          "Star Wars", "/dfdf.png", "Guerra no vácuo");
-      saveOperation = responseSave as bool;
+      //var responseSave = await DataPlugin.saveMovie(
+      // "Star Wars", "/dfdf.png", "Guerra no vácuo");
+      //saveOperation = responseSave as bool;
       responseNative = await DataPlugin.getMovies;
       print(responseNative);
     } on PlatformException {

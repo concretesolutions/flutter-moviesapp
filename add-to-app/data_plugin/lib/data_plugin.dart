@@ -5,7 +5,7 @@ import 'package:data_plugin/Movies.dart';
 import 'package:flutter/services.dart';
 
 class DataPlugin {
-  static const MethodChannel _channel = const MethodChannel('data_plugin');
+  static const MethodChannel _channel = MethodChannel('data_plugin');
 
   static Future<Map<dynamic, dynamic>?> get getMovies async {
     final Map<dynamic, dynamic> moviesResult =
