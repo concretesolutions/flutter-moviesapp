@@ -17,7 +17,7 @@ class MovieDetailViewModel {
     isFavorited = isFavorited;
   }
 
-  void handleFavoriteSelection() {
+  Future<void> handleFavoriteSelection() async{
     final id = movie.id;
     if (_storage.isFavoriteMovie(id)) {
       _storage.unfavoriteMovie(id);

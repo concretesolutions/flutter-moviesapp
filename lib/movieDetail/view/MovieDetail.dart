@@ -1,15 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:moviesapp/movieDetail/viewModel/MovieDetailViewModel.dart';
+import '../viewModel/MovieDetailViewModel.dart';
 
 class MovieDetail extends StatefulWidget {
   final MovieDetailViewModel _viewModel;
 
-  MovieDetail(this._viewModel);
+  const MovieDetail(this._viewModel);
 
   @override
   _MovieDetailState createState() {
@@ -19,10 +19,12 @@ class MovieDetail extends StatefulWidget {
 
 class _MovieDetailState extends State<MovieDetail> {
   bool isFavorited;
+  static const methodChannel = MethodChannel('com.moviesapp.isFavorited');
 
   @override
   void initState() {
     super.initState();
+    methodChannel.setMethodCallHandler((call) => widget._viewModel.handleFavoriteSelection());
     isFavorited = widget._viewModel.isFavorited;
   }
 
@@ -38,7 +40,7 @@ class _MovieDetailState extends State<MovieDetail> {
 
   Widget _body() {
     // This is used in the platform side to register the view.
-    final String viewType = '<platform-view-type>';
+    String viewType = '<platform-view-type>';
 
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -59,7 +61,7 @@ class _MovieDetailState extends State<MovieDetail> {
               viewType: viewType,
               layoutDirection: TextDirection.ltr,
               creationParams: widget._viewModel.movie.toJSONEncodable(),
-              creationParamsCodec: JSONMessageCodec(),
+              creationParamsCodec: StandardMessageCodec(),
             )
               ..addOnPlatformViewCreatedListener(params.onPlatformViewCreated)
               ..create();
@@ -70,8 +72,7 @@ class _MovieDetailState extends State<MovieDetail> {
             viewType: viewType,
             layoutDirection: TextDirection.ltr,
             creationParams: widget._viewModel.movie.toJSONEncodable(),
-            creationParamsCodec: const JSONMessageCodec()
-        );
+            creationParamsCodec: const JSONMessageCodec());
 
       default:
         throw UnsupportedError("Unsupported platform view");
