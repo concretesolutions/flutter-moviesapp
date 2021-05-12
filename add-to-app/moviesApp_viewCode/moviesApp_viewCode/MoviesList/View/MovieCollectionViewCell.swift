@@ -6,17 +6,20 @@
 //
 
 import UIKit
+import data_plugin
 
 class MovieCollectionViewCell:UICollectionViewCell {
     
     var isFavorite = false
     
     var index:Int?
+    var id:Int = 0
     var title:String = ""
     var overview:String = ""
     var poster_path:String = ""
+    var realease_date:String = ""
     
-    let crud = CRUDRealm()
+    let crud = CRUD()
     
     static let reuseIdentifierListCell = "listMovieCell"
     
@@ -80,18 +83,22 @@ class MovieCollectionViewCell:UICollectionViewCell {
                 isFavorite = true
                 
                 let movie = MovieObject()
+                movie.id = self.id
                 movie.title = self.title
                 movie.overview = self.overview
                 movie.poster_path = self.poster_path
-                crud.save(movie)
+                movie.release_date = self.realease_date
+                _ = crud.save(movie)
+               
                 
-                let result = crud.fetch()
+                
+                //let result = crud.fetch()
                 
                 icon.image = UIImage(systemName: "heart.fill")
             }else{
                 isFavorite = false
                 
-                crud.delete(self.index ?? -1)
+                //crud.delete(self.index ?? -1)
                 
                 icon.image = UIImage(systemName: "heart")
             }

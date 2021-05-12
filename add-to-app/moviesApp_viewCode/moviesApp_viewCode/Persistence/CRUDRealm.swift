@@ -6,50 +6,19 @@
 //
 
 import RealmSwift
+import data_plugin
 
-class CRUDRealm {
-    let realm = try! Realm()
-    
-    var movies: Results<MovieObject>!
-    
-    func save(_ object:MovieObject){
-        print(Realm.Configuration.defaultConfiguration.fileURL as Any)
-        do {
-            try realm.write{
-                realm.add(object)
-            }
-        } catch {
-            print("Error in save method")
-        }
+
+class CRUD{
+    func save(_ object: MovieObject) -> Bool{
+        let crudRealm = CRUDRealm()
+        let result = crudRealm.save(object)
+        return result
     }
     
-    func fetch() {
-        movies = realm.objects(MovieObject.self)
-    }
-    
-    func update(_ index:Int,_ newObject: Movie) {
-        if let movie = movies?[index]{
-            do {
-                try realm.write{
-                    movie.title = newObject.title ?? ""
-                    movie.overview = newObject.overview ?? ""
-                    movie.poster_path = newObject.poster_path ?? ""
-                }
-            } catch {
-                print("Error in update method")
-            }
-        }
-    }
-    
-    func delete(_ index:Int) {
-        if let movie = movies?[index]{
-            do {
-                try realm.write{
-                    realm.delete(movie)
-                }
-            } catch {
-                print("Error in update method")
-            }
-        }
+    func fetch() -> [MovieObject] {
+        let crudRealm = CRUDRealm()
+        crudRealm.fetch()
+        return Array(crudRealm.movies)
     }
 }

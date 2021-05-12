@@ -45,9 +45,11 @@ class MovieViewModel{
     
     func addDataCell(_ cell:MovieCollectionViewCell,_ index:Int) {
         cell.index = index
+        cell.id = movies[index].id ?? 0
         cell.title = movies[index].title ?? "Error"
         cell.overview = movies[index].overview ?? "Error"
         cell.poster_path = movies[index].poster_path ?? "Error"
+        cell.realease_date = movies[index].release_date ?? "Error"
     }
 }
 

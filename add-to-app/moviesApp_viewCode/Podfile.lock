@@ -1,7 +1,11 @@
 PODS:
   - Alamofire (5.4.3)
+  - data_plugin (0.0.1):
+    - Flutter
+    - RealmSwift
   - Flutter (1.0.0)
   - FlutterPluginRegistrant (0.0.1):
+    - data_plugin
     - Flutter
   - iOSSnapshotTestCase (6.2.0):
     - iOSSnapshotTestCase/SwiftSupport (= 6.2.0)
@@ -11,20 +15,20 @@ PODS:
   - Kingfisher (6.3.0)
   - list_favorites (0.0.1):
     - Flutter
-  - Realm (10.1.4):
-    - Realm/Headers (= 10.1.4)
-  - Realm/Headers (10.1.4)
-  - RealmSwift (10.1.4):
-    - Realm (= 10.1.4)
+  - Realm (10.7.4):
+    - Realm/Headers (= 10.7.4)
+  - Realm/Headers (10.7.4)
+  - RealmSwift (10.7.4):
+    - Realm (= 10.7.4)
 
 DEPENDENCIES:
   - Alamofire (~> 5.2)
+  - data_plugin (from `../list_favorites/.ios/.symlinks/plugins/data_plugin/ios`)
   - Flutter (from `../list_favorites/.ios/Flutter/engine`)
   - FlutterPluginRegistrant (from `../list_favorites/.ios/Flutter/FlutterPluginRegistrant`)
   - iOSSnapshotTestCase
   - Kingfisher (~> 6.0)
   - list_favorites (from `../list_favorites/.ios/Flutter`)
-  - RealmSwift (= 10.1.4)
 
 SPEC REPOS:
   trunk:
@@ -35,6 +39,8 @@ SPEC REPOS:
     - RealmSwift
 
 EXTERNAL SOURCES:
+  data_plugin:
+    :path: "../list_favorites/.ios/.symlinks/plugins/data_plugin/ios"
   Flutter:
     :path: "../list_favorites/.ios/Flutter/engine"
   FlutterPluginRegistrant:
@@ -44,14 +50,15 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
+  data_plugin: 105653ef4d4893a88a77da3f6f783b5ab068ba9b
   Flutter: ac41d61a47ae5bf8195a5598d2d63754888ec0d5
-  FlutterPluginRegistrant: 2afd5ea46d3a949472c9b7da6462d8fbf7d8b16e
+  FlutterPluginRegistrant: 81664782befb6f6f5acbf59722bd64cb8f1a1e76
   iOSSnapshotTestCase: 9ab44cb5aa62b84d31847f40680112e15ec579a6
   Kingfisher: 6c3df386db71d82c0817a429d2c9421a77396529
   list_favorites: ce08455dec7a7491a212b50e6f506562408aab43
-  Realm: 80f4fb2971ccb9adc27a47d0955ae8e533a7030b
-  RealmSwift: 0e566ca714edb377bba8ea0811eafcea0b93734e
+  Realm: f08ce1a85649a41303ecfe1cbd914c62e9e6d710
+  RealmSwift: 60ec49d165f23d040ab48811d8dd177e09baf4d3
 
-PODFILE CHECKSUM: d3935f6de9475833716754e88c1927405908fe94
+PODFILE CHECKSUM: 53a28de7d629256ad312b95e5b7df99f02b87237
 
 COCOAPODS: 1.10.1
