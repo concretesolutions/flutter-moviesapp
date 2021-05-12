@@ -18,7 +18,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var _saveOperation = false;
-  Map<dynamic, dynamic>? _responseNative;
+  late Map<String, String> _responseNative;
 
   @override
   void initState() {
@@ -29,23 +29,23 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> initPlatformState() async {
     var saveOperation = false;
-    Map<dynamic, dynamic>? responseNative;
+    //Map<dynamic, dynamic>? responseNative;
 
     try {
       //var responseSave = await DataPlugin.saveMovie(
-      // "Star Wars", "/dfdf.png", "Guerra no vácuo");
+      // "Matheuzim", "/dfdf.png", "Guerra no vácuo");
       //saveOperation = responseSave as bool;
-      responseNative = await DataPlugin.getMovies;
-      print(responseNative);
+      //responseNative = await DataPlugin.getMovies;
+      //print(responseNative);
     } on PlatformException {
-      responseNative = null;
+      // responseNative = null;
     }
 
     if (!mounted) return;
 
     setState(() {
       _saveOperation = saveOperation;
-      _responseNative = responseNative;
+      //_responseNative = responseNative;
     });
   }
 
@@ -58,9 +58,9 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Center(
           child: Column(children: [
-            Text("Resultado do Save ${_saveOperation}"),
-            Text("${_responseNative?.keys}"),
-            Text("${_responseNative?.values}"),
+            //Text("Resultado do Save ${_saveOperation}"),
+            //Text("${_responseNative?.keys}"),
+            //Text("${_responseNative?.values}"),
           ]),
         ),
       ),

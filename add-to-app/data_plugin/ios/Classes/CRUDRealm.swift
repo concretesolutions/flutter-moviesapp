@@ -7,12 +7,16 @@
 
 import RealmSwift
 
-class CRUDRealm {
+public class CRUDRealm {
     let realm = try! Realm()
     
-    var movies: Results<MovieObject>!
+    public var movies: Results<MovieObject>!
+
+    public init(){
+
+    }
     
-    func save(_ object:MovieObject) -> Bool{
+    public func save(_ object:MovieObject) -> Bool{
         print(Realm.Configuration.defaultConfiguration.fileURL as Any)
         do {
             try realm.write{
@@ -25,11 +29,11 @@ class CRUDRealm {
         }
     }
     
-    func fetch() {
+    public func fetch() {
         movies = realm.objects(MovieObject.self)
     }
     
-    func update(_ index:Int,_ newObject: MovieObject) {
+    public func update(_ index:Int,_ newObject: MovieObject) {
         if let movie = movies?[index]{
             do {
                 try realm.write{
@@ -43,7 +47,7 @@ class CRUDRealm {
         }
     }
     
-    func delete(_ index:Int) {
+    public func delete(_ index:Int) {
         if let movie = movies?[index]{
             do {
                 try realm.write{

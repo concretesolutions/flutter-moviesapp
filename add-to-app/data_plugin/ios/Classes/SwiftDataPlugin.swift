@@ -16,41 +16,26 @@ public class SwiftDataPlugin: NSObject, FlutterPlugin {
         //DispatchQueue.global(qos: .default).async{
             
             if call.method == "dataRealmSwiftFetch" {
-                
-                
                 let crud = CRUDRealm()
                 crud.fetch()
-    
-                var moviesReturn:[String:[String]]  = [String:[String]]()
-   
-                crud.movies.forEach { movie in
-                    moviesReturn.updateValue([movie.poster_path,movie.overview], forKey: movie.title)
-                }
                 
-                print("Dictionary Enviado: \(moviesReturn)")
-                
-                result(moviesReturn)
-                
-                
-                if crud.movies.isEmpty {
-                    
-                    result(FlutterError(code: "Sem Resultados",
-                                        message: "Insira dados pelo RealmSwift",
-                                        details: nil))
-                    
-                }
-                
+                let dict:[[String:Any]] = crud.movies.map{$0.toDict()}
+                result(dict)
             }
             if call.method == "dataRealmSwiftInsert" {
                 let args = call.arguments as? NSDictionary ?? [:]
+                let id = args["id"] as? Int ?? 0
                 let title = args["title"] as? String ?? "Error"
                 let overview = args["overview"] as? String ?? "Error"
                 let path = args["path"] as? String ?? "Error"
+                let release_date = args["release_date"] as? String ?? "Error"
           
                 let movie = MovieObject()
+                movie.id = id
                 movie.title = title
                 movie.overview = overview
                 movie.poster_path = path
+                movie.release_date = release_date
                 
                 
                 let crud = CRUDRealm()

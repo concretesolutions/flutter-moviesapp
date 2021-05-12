@@ -7,10 +7,22 @@
 
 import RealmSwift
 
-class MovieObject:Object {
-    @objc dynamic var title:String = ""
-    @objc dynamic var overview:String = ""
-    @objc dynamic var poster_path:String = ""
+public class MovieObject:Object {
+    @objc public dynamic var id:Int = 0
+    @objc public  dynamic var title:String = ""
+    @objc public dynamic var overview:String = ""
+    @objc public dynamic var poster_path:String = ""
+    @objc public dynamic var release_date:String = ""
     
+    func toDict() -> [String:Any]{
+        var dict:[String:Any] = [:]
+        dict["id"] = id
+        dict["title"] = title
+        dict["overview"] = overview
+        dict["poster_path"] = poster_path
+        dict["release_date"] = release_date
+
+        return dict
+    }
 }
 
