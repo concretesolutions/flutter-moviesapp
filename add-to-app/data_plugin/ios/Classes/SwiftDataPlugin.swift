@@ -14,36 +14,66 @@ public class SwiftDataPlugin: NSObject, FlutterPlugin {
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         
         //DispatchQueue.global(qos: .default).async{
+        
+        if call.method == "dataRealmSwiftFetch" {
+            let crud = CRUDRealm()
+            crud.fetch()
             
-            if call.method == "dataRealmSwiftFetch" {
-                let crud = CRUDRealm()
-                crud.fetch()
-                
-                let dict:[[String:Any]] = crud.movies.map{$0.toDict()}
-                result(dict)
-            }
-            if call.method == "dataRealmSwiftInsert" {
-                let args = call.arguments as? NSDictionary ?? [:]
-                let id = args["id"] as? Int ?? 0
-                let title = args["title"] as? String ?? "Error"
-                let overview = args["overview"] as? String ?? "Error"
-                let path = args["path"] as? String ?? "Error"
-                let release_date = args["release_date"] as? String ?? "Error"
-          
-                let movie = MovieObject()
-                movie.id = id
-                movie.title = title
-                movie.overview = overview
-                movie.poster_path = path
-                movie.release_date = release_date
-                
-                
-                let crud = CRUDRealm()
-                let returnSave = crud.save(movie)
-                
-                result(NSNumber(value: returnSave))
-                
-            }
+            //let dict:[[String:Any]] = crud.movies.map{$0.toDict()}
+            //result(dict)
+        }
+        if call.method == "dataRealmSwiftFetchId" {
+            let crud = CRUDRealm()
+            let ids = crud.fetchAllIds()
+            
+            result(ids)
+        }
+        if call.method == "dataRealmSwiftFetchTitle" {
+            let crud = CRUDRealm()
+            let titles = crud.fetchAllTitles()
+       
+            result(titles)
+        }
+        if call.method == "dataRealmSwiftFetchOverview" {
+            let crud = CRUDRealm()
+            let overviews = crud.fetchAllOverview()
+   
+            result(overviews)
+        }
+        if call.method == "dataRealmSwiftFetchPosterPath" {
+            let crud = CRUDRealm()
+            let posters = crud.fetchAllPoster_path()
+            
+            result(posters)
+        }
+        if call.method == "dataRealmSwiftFetchDates" {
+            let crud = CRUDRealm()
+            let dates = crud.fetchAllRelease_date()
+        
+            result(dates)
+        }
+        if call.method == "dataRealmSwiftInsert" {
+            let args = call.arguments as? NSDictionary ?? [:]
+            let id = args["id"] as? Int ?? 0
+            let title = args["title"] as? String ?? "Error"
+            let overview = args["overview"] as? String ?? "Error"
+            let path = args["path"] as? String ?? "Error"
+            let release_date = args["release_date"] as? String ?? "Error"
+            
+            let movie = MovieObject()
+            movie.id = id
+            movie.title = title
+            movie.overview = overview
+            movie.poster_path = path
+            movie.release_date = release_date
+            
+            
+            let crud = CRUDRealm()
+            let returnSave = crud.save(movie)
+            
+            result(NSNumber(value: returnSave))
+            
+        }
         //}
         
     }

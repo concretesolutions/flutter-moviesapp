@@ -16,17 +16,17 @@ class FavoriteStorage implements FavoriteStorageProtocol {
   }
 
   Future<List<Movie>> _read() async {
-    _responseNative = await DataPlugin.getMovies;
-    List<Movie> listMovie;
-
+    _responseNative = await DataPlugin().getMovies();
+    List<Movie> listReturn = [];
     print(_responseNative);
 
-    for (var movie in _responseNative) {
-      var a = Movie.fromJSON(movie);
-      listMovie.add(a);
-    }
+    _responseNative.forEach((element) {
+      Movie movie = Movie.fromJSON(element);
+      listReturn.add(movie);
+    });
+
     //return _responseNative.map((movieDict) => Movie.fromJSON(movieDict));
-    return listMovie;
+    return listReturn;
   }
 
   @override
