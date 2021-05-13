@@ -29,13 +29,14 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> initPlatformState() async {
     var saveOperation = false;
+    //Map<dynamic, dynamic>? responseNative;
 
     try {
-      var responseSave = await DataPlugin.saveMovie(
-          1, "Matheuzim", "/dfdf.png", "Guerra no vácuo", "2021/06");
-      saveOperation = responseSave;
-      var responseNative = await DataPlugin().getMovies();
-      print(responseNative);
+      //var responseSave = await DataPlugin.saveMovie(
+      // "Matheuzim", "/dfdf.png", "Guerra no vácuo");
+      //saveOperation = responseSave as bool;
+      //responseNative = await DataPlugin.getMovies;
+      //print(responseNative);
     } on PlatformException {
       // responseNative = null;
     }

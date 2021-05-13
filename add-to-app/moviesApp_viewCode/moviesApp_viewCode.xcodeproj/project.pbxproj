@@ -61,6 +61,7 @@
 		BBAFC13026442EB6000DCCC3 /* APIRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRequest.swift; sourceTree = "<group>"; };
 		BBAFC14926444BB8000DCCC3 /* MovieCollectionViewCellTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCollectionViewCellTest.swift; sourceTree = "<group>"; };
 		BBAFC15126446F2F000DCCC3 /* MovieViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewModel.swift; sourceTree = "<group>"; };
+		BBD6CC1CF545B95C86CAA5A1 /* Pods-moviesApp_viewCode.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-moviesApp_viewCode.release.xcconfig"; path = "Target Support Files/Pods-moviesApp_viewCode/Pods-moviesApp_viewCode.release.xcconfig"; sourceTree = "<group>"; };
 		BBED30A3264387ED00F354F9 /* moviesApp_viewCode.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = moviesApp_viewCode.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBED30A6264387ED00F354F9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BBED30A8264387ED00F354F9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -136,6 +137,16 @@
 				2874F53EC7AA52E00F99800C /* Pods-moviesApp_viewCodeTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		A6B02C1F3B7AC3E3D5506FD5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				19DB4116A0CF8B74F8B9D6B4 /* Pods_moviesApp_viewCode.framework */,
+				579727BD94C41DB0E3CED37E /* Pods_moviesApp_viewCode_moviesApp_viewCodeUITests.framework */,
+				226185863D3ACF948CA4BEA9 /* Pods_moviesApp_viewCodeTests.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		BB781B00264390750070C831 /* Network */ = {
@@ -458,7 +469,11 @@
 			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-moviesApp_viewCode-moviesApp_viewCodeUITests/Pods-moviesApp_viewCode-moviesApp_viewCodeUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Embed Pods Frameworks";
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
 			outputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-moviesApp_viewCode-moviesApp_viewCodeUITests/Pods-moviesApp_viewCode-moviesApp_viewCodeUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
@@ -473,6 +488,23 @@
 			files = (
 			);
 			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-moviesApp_viewCode-moviesApp_viewCodeUITests/Pods-moviesApp_viewCode-moviesApp_viewCodeUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-moviesApp_viewCode-moviesApp_viewCodeUITests/Pods-moviesApp_viewCode-moviesApp_viewCodeUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-moviesApp_viewCode-moviesApp_viewCodeUITests/Pods-moviesApp_viewCode-moviesApp_viewCodeUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EEC9D2248E28ADD8257215C6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-moviesApp_viewCodeTests/Pods-moviesApp_viewCodeTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
@@ -482,28 +514,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-moviesApp_viewCodeTests/Pods-moviesApp_viewCodeTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EEC9D2248E28ADD8257215C6 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-moviesApp_viewCode-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FF360D17B4D0FDE67FD2AE25 /* [CP] Check Pods Manifest.lock */ = {
@@ -525,8 +535,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "set -e\nset -u\nsource \"${SRCROOT}/../list_favorites/.ios/Flutter/flutter_export_environment.sh\"\nexport VERBOSE_SCRIPT_LOGGING=1 && \"$FLUTTER_ROOT\"/packages/flutter_tools/bin/xcode_backend.sh build";
 		};
 /* End PBXShellScriptBuildPhase section */
 
