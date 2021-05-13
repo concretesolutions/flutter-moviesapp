@@ -25,9 +25,9 @@ class ListMovieViewBase: UIView{
     
     let layout:UICollectionViewFlowLayout = {
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 20, left: 5, bottom: 52, right: 5)
+        layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 52, right: 10)
         //width: 90, height: 125.66
-        layout.itemSize = CGSize(width: 190, height: 200)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width * 0.45, height: 200)
         return layout
     }()
     
